@@ -1944,10 +1944,26 @@ document.addEventListener('DOMContentLoaded', () => {
     
     settingsBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        
+        const storedKakaopay = localStorage.getItem('aw-setting-kakaopay') || '';
+        const storedBmc = localStorage.getItem('aw-setting-bmc') || '';
+        
+        // Hide support section if BOTH support IDs are already filled
+        const supportContainer = document.getElementById('settings-support-container');
+        const supportDivider = document.getElementById('settings-support-divider');
+        
+        if (storedKakaopay.trim() && storedBmc.trim()) {
+            if (supportContainer) supportContainer.style.display = 'none';
+            if (supportDivider) supportDivider.style.display = 'none';
+        } else {
+            if (supportContainer) supportContainer.style.display = 'grid';
+            if (supportDivider) supportDivider.style.display = 'block';
+        }
+        
         // Pre-populate setting fields with current values (show empty if not customized to prevent locking defaults)
         document.getElementById('setting-lofi').value = localStorage.getItem('aw-setting-lofi') || '';
-        document.getElementById('setting-kakaopay').value = localStorage.getItem('aw-setting-kakaopay') || '';
-        document.getElementById('setting-bmc').value = localStorage.getItem('aw-setting-bmc') || '';
+        document.getElementById('setting-kakaopay').value = storedKakaopay;
+        document.getElementById('setting-bmc').value = storedBmc;
         
         // Handle potentially object-formatted city videos dynamically
         const getSettingVal = (cityKey) => {
@@ -1960,7 +1976,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('setting-newyork').value = getSettingVal('newyork');
         document.getElementById('setting-london').value = getSettingVal('london');
         document.getElementById('setting-sydney').value = getSettingVal('sydney');
-        document.getElementById('setting-reykjavik').value = getSettingVal('reykjavik');
         document.getElementById('setting-cartoon').value = getSettingVal('cartoon');
         
         settingsModal.classList.remove('hidden');
