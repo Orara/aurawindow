@@ -65,7 +65,7 @@ const cities = {
         lat: 35.6895,
         lon: 139.6917,
         timezone: 'Asia/Tokyo',
-        music: ['ZhFa3YmsgFI', 'co5np2ipUyQ', 'AznRJvAPtwM']
+        music: ['ZhFa3YmsgFI', 'qdbufMYZHJ4', 'AznRJvAPtwM']
     },
     seoul: {
         videos: [
@@ -112,7 +112,7 @@ const cities = {
         lat: 48.8566,
         lon: 2.3522,
         timezone: 'Europe/Paris',
-        music: ['5jaT_8hy3Vg', 'sX5lzm0FjYI', '_DYAnU3H7RI']
+        music: ['_DYAnU3H7RI', '5XKXfCdfmNc', 'AznRJvAPtwM']
     },
     newyork: {
         videos: [
@@ -135,7 +135,7 @@ const cities = {
         lat: 40.7128,
         lon: -74.0060,
         timezone: 'America/New_York',
-        music: ['5l8khj88MFQ', 'n61ULEU7CO0', 'p_vEUb65XtU']
+        music: ['ZhFa3YmsgFI', '7NOSDKb0HlU', '_DYAnU3H7RI']
     },
     london: {
         videos: [
@@ -157,7 +157,7 @@ const cities = {
         lat: 51.5074,
         lon: -0.1278,
         timezone: 'Europe/London',
-        music: ['ZjZFzghY7Ew', 'zdXa6Ha91QQ', 'CFGLoQIhmow']
+        music: ['7NOSDKb0HlU', 'Tlw1Oac7KxQ', '_DYAnU3H7RI']
     },
     sydney: {
         videos: [
@@ -182,7 +182,7 @@ const cities = {
         lat: -33.8688,
         lon: 151.2093,
         timezone: 'Australia/Sydney',
-        music: ['aAvMDmN1t5A', '7NOSDKb0HlU', 'co5np2ipUyQ']
+        music: ['ZhFa3YmsgFI', 'YQs7IVvvVYw', 'AznRJvAPtwM']
     },
     cartoon: {
         videos: [], // Cartoon room uses Ghibli AI image slideshow instead of YouTube
@@ -192,12 +192,12 @@ const cities = {
         lat: 35.6895,
         lon: 139.6917,
         timezone: 'Asia/Tokyo',
-        music: ['6_z2s6y0mD0', 'JDM6TDiDlAg', 'jfKfPfyJRdk', 'PKFjKOBg7uo'],
+        music: ['ZhFa3YmsgFI', 'qdbufMYZHJ4', 'AznRJvAPtwM'],
         useGhibliSlideshow: true  // special flag: show AI image slideshow
     }
 };
 
-const defaultLofiId = '5l8khj88MFQ';
+const defaultLofiId = 'ZhFa3YmsgFI';
 const soundOptions = {
     rain: {
         shower: 'mPZkdNFkNps', // Heavy Rain and Thunder
@@ -693,6 +693,45 @@ function updateLofiPlaylistForCity(cityKey) {
     
     activeLofiPlaylist = customExists ? [storedLofi, ...listToShuffle] : listToShuffle;
     currentLofiIndex = 0;
+}
+
+function updateCityLofiBGM(cityKey) {
+    const prevLofiId = (activeLofiPlaylist.length > 0 && currentLofiIndex < activeLofiPlaylist.length) ? activeLofiPlaylist[currentLofiIndex] : null;
+    
+    updateLofiPlaylistForCity(cityKey);
+    
+    if (lofiPlayer && activeLofiPlaylist.length > 0) {
+        let shouldKeepPlaying = false;
+        if (prevLofiId) {
+            const indexInNew = activeLofiPlaylist.indexOf(prevLofiId);
+            if (indexInNew !== -1) {
+                currentLofiIndex = indexInNew;
+                shouldKeepPlaying = true;
+            } else {
+                // Keep playing the current track to prevent ads, and insert it at the front of the new playlist
+                activeLofiPlaylist.splice(currentLofiIndex, 0, prevLofiId);
+                shouldKeepPlaying = true;
+            }
+        }
+        
+        if (!shouldKeepPlaying) {
+            try {
+                console.log(`Loading new lofi track: ${activeLofiPlaylist[0]}`);
+                lofiPlayer.loadVideoById({ videoId: activeLofiPlaylist[0], playlist: activeLofiPlaylist[0] });
+                if (volumes.lofi > 0 && !isMuted) {
+                    safePlayerControl(lofiPlayer, 'setVolume', volumes.lofi);
+                    safePlayerControl(lofiPlayer, 'playVideo');
+                } else {
+                    safePlayerControl(lofiPlayer, 'pauseVideo');
+                }
+            } catch (e) { console.error('Error changing city lofi track:', e); }
+        } else {
+            console.log(`Keeping current lofi track playing to prevent ads: ${prevLofiId}`);
+            if (volumes.lofi > 0 && !isMuted) {
+                safePlayerControl(lofiPlayer, 'playVideo');
+            }
+        }
+    }
 }
 
 // Initialize lofi playlist on start
@@ -1643,16 +1682,7 @@ function changeCity(cityKey) {
         startGhibliSlideshow(state);
 
         // Update lofi music for cartoon room
-        updateLofiPlaylistForCity(cityKey);
-        if (lofiPlayer && activeLofiPlaylist.length > 0) {
-            try {
-                lofiPlayer.loadVideoById({ videoId: activeLofiPlaylist[0], playlist: activeLofiPlaylist[0] });
-                if (volumes.lofi > 0 && !isMuted) {
-                    safePlayerControl(lofiPlayer, 'setVolume', volumes.lofi);
-                    safePlayerControl(lofiPlayer, 'playVideo');
-                }
-            } catch(e) { console.error('Lofi change error:', e); }
-        }
+        updateCityLofiBGM(cityKey);
         updateWeather(cityKey);
         return;
     }
@@ -1695,18 +1725,7 @@ function changeCity(cityKey) {
     }
 
     // Update lofi music
-    updateLofiPlaylistForCity(cityKey);
-    if (lofiPlayer && activeLofiPlaylist.length > 0) {
-        try {
-            lofiPlayer.loadVideoById({ videoId: activeLofiPlaylist[0], playlist: activeLofiPlaylist[0] });
-            if (volumes.lofi > 0 && !isMuted) {
-                safePlayerControl(lofiPlayer, 'setVolume', volumes.lofi);
-                safePlayerControl(lofiPlayer, 'playVideo');
-            } else {
-                safePlayerControl(lofiPlayer, 'pauseVideo');
-            }
-        } catch (e) { console.error('Error changing city lofi track:', e); }
-    }
+    updateCityLofiBGM(cityKey);
 
     // Refine video with actual weather (guarded by city check in applyCityVideoByState)
     updateWeather(cityKey);
