@@ -696,41 +696,19 @@ function updateLofiPlaylistForCity(cityKey) {
 }
 
 function updateCityLofiBGM(cityKey) {
-    const prevLofiId = (activeLofiPlaylist.length > 0 && currentLofiIndex < activeLofiPlaylist.length) ? activeLofiPlaylist[currentLofiIndex] : null;
-    
     updateLofiPlaylistForCity(cityKey);
     
     if (lofiPlayer && activeLofiPlaylist.length > 0) {
-        let shouldKeepPlaying = false;
-        if (prevLofiId) {
-            const indexInNew = activeLofiPlaylist.indexOf(prevLofiId);
-            if (indexInNew !== -1) {
-                currentLofiIndex = indexInNew;
-                shouldKeepPlaying = true;
-            } else {
-                // Keep playing the current track to prevent ads, and insert it at the front of the new playlist
-                activeLofiPlaylist.splice(currentLofiIndex, 0, prevLofiId);
-                shouldKeepPlaying = true;
-            }
-        }
-        
-        if (!shouldKeepPlaying) {
-            try {
-                console.log(`Loading new lofi track: ${activeLofiPlaylist[0]}`);
-                lofiPlayer.loadVideoById({ videoId: activeLofiPlaylist[0], playlist: activeLofiPlaylist[0] });
-                if (volumes.lofi > 0 && !isMuted) {
-                    safePlayerControl(lofiPlayer, 'setVolume', volumes.lofi);
-                    safePlayerControl(lofiPlayer, 'playVideo');
-                } else {
-                    safePlayerControl(lofiPlayer, 'pauseVideo');
-                }
-            } catch (e) { console.error('Error changing city lofi track:', e); }
-        } else {
-            console.log(`Keeping current lofi track playing to prevent ads: ${prevLofiId}`);
+        try {
+            console.log(`Loading new lofi track for city ${cityKey}: ${activeLofiPlaylist[0]}`);
+            lofiPlayer.loadVideoById({ videoId: activeLofiPlaylist[0], playlist: activeLofiPlaylist[0] });
             if (volumes.lofi > 0 && !isMuted) {
+                safePlayerControl(lofiPlayer, 'setVolume', volumes.lofi);
                 safePlayerControl(lofiPlayer, 'playVideo');
+            } else {
+                safePlayerControl(lofiPlayer, 'pauseVideo');
             }
-        }
+        } catch (e) { console.error('Error changing city lofi track:', e); }
     }
 }
 
