@@ -810,33 +810,37 @@ input[type="range"]::-webkit-slider-thumb:hover {
         grid-column: 1;
         grid-row: 3;
         max-width: 100%;
-        gap: 12px;
-        padding-bottom: 36px; /* extra padding to clear footer on mobile */
+        gap: 10px;
+        padding-bottom: 24px;
     }
 
     .mixer-panel {
-        padding: 16px;
+        padding: 12px 14px;
     }
 
     .mixer-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 14px;
     }
 
     .utility-panel {
-        padding: 8px;
-        gap: 8px;
-        flex-wrap: wrap; /* allow utility buttons to wrap onto multiple rows if needed */
+        padding: 6px;
+        gap: 6px;
+        flex-wrap: wrap;
     }
 
     .utility-btn {
-        flex: 1 1 calc(50% - 8px); /* 2 buttons per row */
-        padding: 8px 12px;
-        font-size: 11px;
+        flex: 1 1 calc(50% - 6px);
+        padding: 6px 10px;
+        font-size: 10.5px;
+    }
+
+    #about-btn {
+        flex: 1 1 100%;
     }
     
     .timer-select-container, .lang-select-container {
-        flex: 1 1 calc(50% - 8px);
+        flex: 1 1 calc(50% - 6px);
     }
 
     .support-methods {
