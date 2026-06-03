@@ -1577,7 +1577,7 @@ function updateSupportLinks() {
                 }
                 paypalLink.href = val;
             } else if (val.includes('@')) {
-                paypalLink.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${encodeURIComponent(val)}&currency_code=USD`;
+                paypalLink.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${encodeURIComponent(val)}&item_name=Support%20AuraWindow&currency_code=USD`;
             } else {
                 paypalLink.href = `https://paypal.me/${val}`;
             }
