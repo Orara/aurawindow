@@ -2,7 +2,7 @@
 
 // Automatically clear settings when version changes (prevent cache conflicts)
 function migrateSettings() {
-    const CURRENT_VERSION = 'v20'; // bumped
+    const CURRENT_VERSION = 'v21'; // bumped
     const storedVersion = localStorage.getItem('aw-version');
     if (storedVersion !== CURRENT_VERSION) {
         for (let i = localStorage.length - 1; i >= 0; i--) {
@@ -12,13 +12,17 @@ function migrateSettings() {
             }
         }
         localStorage.setItem('aw-version', CURRENT_VERSION);
+        localStorage.setItem('aw-setting-kakaopay', 'https://qr.kakaopay.com/Ej8jxj7sn');
         localStorage.setItem('aw-setting-paypal', 'orara82@gmail.com');
         console.log(`Cleared legacy localStorage cache for version ${CURRENT_VERSION}`);
     }
 }
 migrateSettings();
 
-// Ensure default PayPal is set if not already present
+// Ensure defaults are set if not already present
+if (!localStorage.getItem('aw-setting-kakaopay')) {
+    localStorage.setItem('aw-setting-kakaopay', 'https://qr.kakaopay.com/Ej8jxj7sn');
+}
 if (!localStorage.getItem('aw-setting-paypal')) {
     localStorage.setItem('aw-setting-paypal', 'orara82@gmail.com');
 }
