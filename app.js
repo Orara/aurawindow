@@ -12,10 +12,16 @@ function migrateSettings() {
             }
         }
         localStorage.setItem('aw-version', CURRENT_VERSION);
+        localStorage.setItem('aw-setting-paypal', 'orara82@gmail.com');
         console.log(`Cleared legacy localStorage cache for version ${CURRENT_VERSION}`);
     }
 }
 migrateSettings();
+
+// Ensure default PayPal is set if not already present
+if (!localStorage.getItem('aw-setting-paypal')) {
+    localStorage.setItem('aw-setting-paypal', 'orara82@gmail.com');
+}
 
 // Utility: Shuffle an array randomly (Fisher-Yates Algorithm)
 function shuffleArray(array) {
