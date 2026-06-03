@@ -2,7 +2,7 @@
 
 // Automatically clear settings when version changes (prevent cache conflicts)
 function migrateSettings() {
-    const CURRENT_VERSION = 'v23'; // bumped
+    const CURRENT_VERSION = 'v24'; // bumped to clear settings and force-reload lofi BGM playlists
     const storedVersion = localStorage.getItem('aw-version');
     if (storedVersion !== CURRENT_VERSION) {
         for (let i = localStorage.length - 1; i >= 0; i--) {
@@ -685,13 +685,17 @@ function updateLofiPlaylistForCity(cityKey) {
         list.unshift(storedLofi);
     }
     
-    // Shuffle the list to keep it fun and random when selecting a city,
-    // while keeping it country-specific since each city has a unique playlist!
-    const customExists = !!storedLofi;
-    let listToShuffle = customExists ? list.slice(1) : list;
-    shuffleArray(listToShuffle);
-    
-    activeLofiPlaylist = customExists ? [storedLofi, ...listToShuffle] : listToShuffle;
+    // Shuffle the list to keep it fun and random,
+    // EXCEPT for the Cartoon Room (공부방) which should always play the signature Ghibli lofi first!
+    if (cityKey !== 'cartoon') {
+        const customExists = !!storedLofi;
+        let listToShuffle = customExists ? list.slice(1) : list;
+        shuffleArray(listToShuffle);
+        activeLofiPlaylist = customExists ? [storedLofi, ...listToShuffle] : listToShuffle;
+    } else {
+        // Keep Ghibli Cartoon Room in its original, curated order (signature track first)
+        activeLofiPlaylist = list;
+    }
     currentLofiIndex = 0;
 }
 
@@ -1110,13 +1114,7 @@ function createHiddenPlayer(elementId, videoId) {
                     console.log(`${elementId} is ready.`);
                     const key = elementId.split('-')[0];
                     event.target.setVolume(volumes[key] || 0);
-                    if (elementId === 'lofi-player' && volumes.lofi > 0 && !isMuted) {
-                        try {
-                            event.target.playVideo();
-                        } catch (e) {
-                            console.log('Autoplay was blocked by browser on load.');
-                        }
-                    }
+                    // Do NOT play audio here. Audio should only play after the user clicks the "Enter" button (triggerUserGesture) to prevent premature autoplay.
                 },
                 onStateChange: (event) => {
                     if (elementId === 'lofi-player' && event.data === 0) {
