@@ -204,17 +204,10 @@
 
             <!-- Focus / UX Utilities -->
             <div class="utility-panel glass-panel">
-                <div class="lang-select-container">
-                    <button id="lang-btn" class="utility-btn" title="언어 선택 / Language">
-                        <i class="fa-solid fa-earth-americas"></i>
-                        <span>언어 선택</span>
-                    </button>
-                    <div id="lang-dropdown" class="lang-dropdown glass-panel hidden">
-                        <button type="button" class="lang-option" data-lang="ko">한국어 (KO)</button>
-                        <button type="button" class="lang-option" data-lang="en">English (EN)</button>
-                        <button type="button" class="lang-option" data-lang="ja">日本語 (JA)</button>
-                    </div>
-                </div>
+                <button id="zen-mode-btn" class="utility-btn" title="화면 비우기 (일정 시간 뒤 UI 숨김)">
+                    <i class="fa-solid fa-eye-slash"></i>
+                    <span>집중 모드</span>
+                </button>
                 <div class="timer-select-container">
                     <button id="timer-btn" class="utility-btn" title="취면 타이머 / Sleep Timer">
                         <i class="fa-solid fa-clock"></i>
@@ -232,15 +225,22 @@
                         </div>
                     </div>
                 </div>
-                <button id="zen-mode-btn" class="utility-btn" title="화면 비우기 (일정 시간 뒤 UI 숨김)">
-                    <i class="fa-solid fa-eye-slash"></i>
-                    <span>집중 모드</span>
-                </button>
+                <div class="lang-select-container">
+                    <button id="lang-btn" class="utility-btn" title="언어 선택 / Language">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span>언어 선택</span>
+                    </button>
+                    <div id="lang-dropdown" class="lang-dropdown glass-panel hidden">
+                        <button type="button" class="lang-option" data-lang="ko">한국어 (KO)</button>
+                        <button type="button" class="lang-option" data-lang="en">English (EN)</button>
+                        <button type="button" class="lang-option" data-lang="ja">日本語 (JA)</button>
+                    </div>
+                </div>
                 <button id="settings-btn" class="utility-btn" title="커스텀 영상/음악 설정">
                     <i class="fa-solid fa-gear"></i>
                     <span>설정</span>
                 </button>
-                <button id="about-btn" class="utility-btn" title="후원 및 정보">
+                <button id="about-btn" class="utility-btn accent-btn" title="후원 및 정보">
                     <i class="fa-solid fa-heart"></i>
                     <span>후원하기</span>
                 </button>

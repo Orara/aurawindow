@@ -59,17 +59,21 @@ const cities = {
     },
     seoul: {
         videos: [
-            // Seoul city videos - ALL tags set so every video is always eligible
-            { id: 'pzQMBmLPaDs', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: 'ca9uN3QyDmQ', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: 'M2GWFMeL0D8', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: 'PqhWHs01P4U', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: '0jMSFY3SIa8', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: 'zxHbJr3Mheg', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: 'qS_SZQtCJGQ', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: 'JumvKFJJLiA', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: 'h4mY-t6697w', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] },
-            { id: '3P1CnWI62yE', tags: ['day', 'night', 'sunset', 'sunrise', 'rain'] }
+            { id: 'w-m4UON2Hlk', tags: ['day', 'sunrise'] },
+            { id: 'in9Z8_elhaA', tags: ['day', 'sunset'] },
+            { id: '7xe9p4nw6Lg', tags: ['day', 'sunrise'] },
+            { id: 'LmtIYtAoays', tags: ['day', 'night', 'rain', 'sunset', 'sunrise'] },
+            { id: 'ta_Zmeqd8GU', tags: ['day', 'sunset'] },
+            { id: 'wGfJe5T3Vl8', tags: ['night'] },
+            { id: '15Jp8a0VE2w', tags: ['night'] },
+            { id: 'zRYoBzlVJ-8', tags: ['night'] },
+            { id: '3cgUFdzRpEQ', tags: ['night'] },
+            { id: 'zxz310jbwFI', tags: ['night'] },
+            { id: 'sBtYWK817-0', tags: ['night', 'rain'] },
+            { id: 'SgdsWCC0M-0', tags: ['night', 'rain'] },
+            { id: 'mpTYO-8Dw5k', tags: ['rain'] },
+            { id: 'KAfiNLFaqtM', tags: ['rain'] },
+            { id: 'vd8C478vIy0', tags: ['rain'] }
         ],
         currentVideoIndex: 0,
         nameKr: '서울',
