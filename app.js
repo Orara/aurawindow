@@ -2,7 +2,7 @@
 
 // Automatically clear settings when version changes (prevent cache conflicts)
 function migrateSettings() {
-    const CURRENT_VERSION = 'v24'; // bumped to clear settings and force-reload lofi BGM playlists
+    const CURRENT_VERSION = 'v26'; // bumped to clear settings and force-reload lofi BGM playlists
     const storedVersion = localStorage.getItem('aw-version');
     if (storedVersion !== CURRENT_VERSION) {
         for (let i = localStorage.length - 1; i >= 0; i--) {
@@ -191,7 +191,20 @@ const cities = {
         nameEn: 'Cozy Cartoon Room',
         lat: 35.6895,
         lon: 139.6917,
-        music: ['N3ur5Ey21zg', 'Udh9T3DQNjo', 'b3wnz3Tt5is', '3nNhbQ0Lp_0', 'JDM6TDiDlAg'],
+        music: [
+            'N3ur5Ey21zg',
+            'Udh9T3DQNjo',
+            '3nNhbQ0Lp_0',
+            '3u0wlqe8lVk',
+            'JDM6TDiDlAg',
+            'HGl75kurxok',
+            '7lq6e4Lu4B8',
+            'AZals4U6Z_I',
+            '3jWRrafhO7M',
+            'zhDwjnYZiCo',
+            'oQUA3tQS0To',
+            'zcaskjhhXWQ'
+        ],
         useGhibliSlideshow: true  // special flag: show AI image slideshow
     }
 };
@@ -679,23 +692,18 @@ function updateLofiPlaylistForCity(cityKey) {
     const city = cities[cityKey];
     let list = [...city.music];
     
-    // Add user's custom lofi if it exists
+    // Add user's custom lofi if it exists (ONLY for normal cities, not the Cartoon Room!)
     const storedLofi = localStorage.getItem('aw-setting-lofi');
-    if (storedLofi) {
+    const customExists = !!storedLofi && cityKey !== 'cartoon';
+    if (customExists) {
         list.unshift(storedLofi);
     }
     
-    // Shuffle the list to keep it fun and random,
-    // EXCEPT for the Cartoon Room (공부방) which should always play the signature Ghibli lofi first!
-    if (cityKey !== 'cartoon') {
-        const customExists = !!storedLofi;
-        let listToShuffle = customExists ? list.slice(1) : list;
-        shuffleArray(listToShuffle);
-        activeLofiPlaylist = customExists ? [storedLofi, ...listToShuffle] : listToShuffle;
-    } else {
-        // Keep Ghibli Cartoon Room in its original, curated order (signature track first)
-        activeLofiPlaylist = list;
-    }
+    // Shuffle the list to keep it fun and random for all cities!
+    // Since all tracks in the Cartoon Room are 100% Ghibli, shuffling keeps it fresh while staying Ghibli-themed.
+    let listToShuffle = customExists ? list.slice(1) : list;
+    shuffleArray(listToShuffle);
+    activeLofiPlaylist = customExists ? [storedLofi, ...listToShuffle] : listToShuffle;
     currentLofiIndex = 0;
 }
 
