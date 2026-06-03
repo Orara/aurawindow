@@ -191,8 +191,7 @@ const cities = {
         nameEn: 'Cozy Cartoon Room',
         lat: 35.6895,
         lon: 139.6917,
-        timezone: 'Asia/Tokyo',
-        music: ['6_z2s6y0mD0', 'JDM6TDiDlAg', 'jfKfPfyJRdk', 'PKFjKOBg7uo'],
+        music: ['N3ur5Ey21zg', 'Udh9T3DQNjo', 'b3wnz3Tt5is', '3nNhbQ0Lp_0', 'JDM6TDiDlAg'],
         useGhibliSlideshow: true  // special flag: show AI image slideshow
     }
 };
