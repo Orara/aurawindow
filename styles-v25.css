@@ -695,7 +695,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     }
 
     .app-ui {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         grid-template-rows: auto auto auto;
         padding: 12px;
         gap: 12px;
@@ -755,6 +755,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
         -webkit-backdrop-filter: none;
         max-height: none;
         overflow: visible;
+        min-width: 0;
     }
 
     .sidebar-title {
@@ -768,6 +769,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
         gap: 6px;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        width: 100%;
+        min-width: 0;
     }
 
     .city-list::-webkit-scrollbar {
@@ -815,6 +818,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
         max-width: 100%;
         gap: 8px;
         padding-bottom: 0px;
+        min-width: 0;
     }
 
     .mixer-panel {
@@ -826,7 +830,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     }
 
     .mixer-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px 10px;
     }
 
@@ -836,7 +840,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
     .utility-panel {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         padding: 4px;
         gap: 4px;
     }
