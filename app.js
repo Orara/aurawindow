@@ -1,5 +1,9 @@
 // Visual Debugger Removed. Custom logger is disabled.
 
+// Obfuscated default credentials to prevent email harvesting and automated scraper detection
+const OB_KP = 'aHR0cHM6Ly9xci5rYWthb3BheS5jb20vRWo4anhqN3Nu'; // Base64 of KakaoPay link
+const OB_PP = 'b3JhcmE4MkBnbWFpbC5jb20='; // Base64 of PayPal email
+
 // Automatically clear settings when version changes (prevent cache conflicts)
 function migrateSettings() {
     const CURRENT_VERSION = 'v26'; // bumped to clear settings and force-reload lofi BGM playlists
@@ -12,8 +16,8 @@ function migrateSettings() {
             }
         }
         localStorage.setItem('aw-version', CURRENT_VERSION);
-        localStorage.setItem('aw-setting-kakaopay', 'https://qr.kakaopay.com/Ej8jxj7sn');
-        localStorage.setItem('aw-setting-paypal', 'orara82@gmail.com');
+        localStorage.setItem('aw-setting-kakaopay', atob(OB_KP));
+        localStorage.setItem('aw-setting-paypal', atob(OB_PP));
         console.log(`Cleared legacy localStorage cache for version ${CURRENT_VERSION}`);
     }
 }
@@ -21,10 +25,10 @@ migrateSettings();
 
 // Ensure defaults are set if not already present
 if (!localStorage.getItem('aw-setting-kakaopay')) {
-    localStorage.setItem('aw-setting-kakaopay', 'https://qr.kakaopay.com/Ej8jxj7sn');
+    localStorage.setItem('aw-setting-kakaopay', atob(OB_KP));
 }
 if (!localStorage.getItem('aw-setting-paypal')) {
-    localStorage.setItem('aw-setting-paypal', 'orara82@gmail.com');
+    localStorage.setItem('aw-setting-paypal', atob(OB_PP));
 }
 
 // Utility: Shuffle an array randomly (Fisher-Yates Algorithm)
@@ -1778,6 +1782,14 @@ document.addEventListener('DOMContentLoaded', () => {
     updateClock();
     setInterval(updateClock, 1000);
     updateSupportLinks();
+    
+    // Decrypt and set footer email dynamically to protect from scrapers
+    const emailLink = document.getElementById('footer-email-link');
+    if (emailLink) {
+        const decodedEmail = atob(OB_PP);
+        emailLink.href = `mailto:${decodedEmail}`;
+        emailLink.textContent = decodedEmail;
+    }
     
     // 2. Fetch Weather for All Cities (Batch)
     fetchAllCitiesWeather();
