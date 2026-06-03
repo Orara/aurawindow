@@ -685,7 +685,13 @@ function updateLofiPlaylistForCity(cityKey) {
         list.unshift(storedLofi);
     }
     
-    activeLofiPlaylist = list;
+    // Shuffle the list to keep it fun and random when selecting a city,
+    // while keeping it country-specific since each city has a unique playlist!
+    const customExists = !!storedLofi;
+    let listToShuffle = customExists ? list.slice(1) : list;
+    shuffleArray(listToShuffle);
+    
+    activeLofiPlaylist = customExists ? [storedLofi, ...listToShuffle] : listToShuffle;
     currentLofiIndex = 0;
 }
 
