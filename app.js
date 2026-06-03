@@ -2,7 +2,7 @@
 
 // Automatically clear settings when version changes (prevent cache conflicts)
 function migrateSettings() {
-    const CURRENT_VERSION = 'v19'; // bumped
+    const CURRENT_VERSION = 'v20'; // bumped
     const storedVersion = localStorage.getItem('aw-version');
     if (storedVersion !== CURRENT_VERSION) {
         for (let i = localStorage.length - 1; i >= 0; i--) {
@@ -239,12 +239,12 @@ const translations = {
         supportModalTitle: "AuraWindow 후원하기",
         supportModalDesc: "AuraWindow를 이용해 주셔서 감사합니다. 여러분의 따뜻한 응원이 더 매력적인 방구석 세계 창문을 추가하고 서비스를 유지하는 데 큰 도움이 됩니다.",
         supportKakaopay: "카카오페이 송금하기",
-        supportBmc: "Buy Me a Coffee",
+        supportPaypal: "PayPal 후원하기",
         settingsModalTitle: "영상 및 음악 설정",
         settingsModalDesc: "유튜브 영상이 차단되었거나 원하는 감성 영상이 따로 있다면, 직접 유튜브 영상 주소(URL) 또는 ID를 넣어 자유롭게 나만의 창문으로 세팅할 수 있습니다.",
         settingLofiLabel: "로파이 배경 음악 (유튜브 링크/ID)",
         settingKakaopayLabel: "카카오페이 송금코드/링크",
-        settingBmcLabel: "Buy Me a Coffee 아이디",
+        settingPaypalLabel: "PayPal (PayPal.Me 링크 또는 이메일)",
         settingSaveBtn: "설정 저장 및 페이지 적용",
         settingResetBtn: "설정 초기화",
         kakaopayQrTitle: "카카오페이 송금하기",
@@ -316,12 +316,12 @@ const translations = {
         supportModalTitle: "Support AuraWindow",
         supportModalDesc: "Thank you for using AuraWindow. Your support helps us add more beautiful windows and maintain the service.",
         supportKakaopay: "Send via KakaoPay",
-        supportBmc: "Buy Me a Coffee",
+        supportPaypal: "Support via PayPal",
         settingsModalTitle: "Video & Audio Settings",
         settingsModalDesc: "If a YouTube video is blocked or you want to use your own background, enter the YouTube URL or ID here.",
         settingLofiLabel: "Lofi Music (YouTube URL/ID)",
         settingKakaopayLabel: "KakaoPay Link/Code",
-        settingBmcLabel: "Buy Me a Coffee ID",
+        settingPaypalLabel: "PayPal (PayPal.Me Link or Email)",
         settingSaveBtn: "Save and Apply Settings",
         settingResetBtn: "Reset Settings",
         kakaopayQrTitle: "KakaoPay Transfer",
@@ -393,12 +393,12 @@ const translations = {
         supportModalTitle: "AuraWindowを応援する",
         supportModalDesc: "AuraWindowをご利用いただきありがとうございます。皆様の温かいサポートが、より魅力的な窓を追加し、サービスを維持する大きな力になります。",
         supportKakaopay: "KakaoPayで送金",
-        supportBmc: "Buy Me a Coffee",
+        supportPaypal: "PayPalで応援",
         settingsModalTitle: "動画と音楽の設定",
         settingsModalDesc: "YouTube動画がブロックされている場合や、お気に入りの動画がある場合は、YouTubeのURLまたはIDを入力して自由にカスタマイズできます。",
         settingLofiLabel: "Lofi BGM (YouTube URL/ID)",
         settingKakaopayLabel: "KakaoPay送金リンク/コード",
-        settingBmcLabel: "Buy Me a Coffee ID",
+        settingPaypalLabel: "PayPal (PayPal.Meまたはメール)",
         settingSaveBtn: "設定を保存して適用",
         settingResetBtn: "設定初期化",
         kakaopayQrTitle: "KakaoPay送金",
@@ -798,9 +798,9 @@ function applyTranslations(lang) {
         supportKakaopayBtn.innerHTML = `<i class="fa-solid fa-comment"></i> ${dict.supportKakaopay}`;
     }
     
-    const supportBmcBtn = document.getElementById('support-bmc-link');
-    if (supportBmcBtn) {
-        supportBmcBtn.innerHTML = `<i class="fa-solid fa-mug-hot"></i> ${dict.supportBmc}`;
+    const supportPaypalBtn = document.getElementById('support-paypal-link');
+    if (supportPaypalBtn) {
+        supportPaypalBtn.innerHTML = `<i class="fa-brands fa-paypal"></i> ${dict.supportPaypal}`;
     }
     
     // Settings Modal
@@ -814,7 +814,7 @@ function applyTranslations(lang) {
     if (settingsLabels.length >= 10) {
         settingsLabels[0].textContent = dict.settingLofiLabel;
         settingsLabels[1].textContent = dict.settingKakaopayLabel;
-        settingsLabels[2].textContent = dict.settingBmcLabel;
+        settingsLabels[2].textContent = dict.settingPaypalLabel;
         // City Labels
         settingsLabels[3].textContent = `${dict.cities.tokyo.name} ID`;
         settingsLabels[4].textContent = `${dict.cities.seoul.name} ID`;
@@ -1537,10 +1537,10 @@ function updateClock() {
 // Support Links logic
 function updateSupportLinks() {
     const kakaopayVal = localStorage.getItem('aw-setting-kakaopay') || '';
-    const bmcVal = localStorage.getItem('aw-setting-bmc') || '';
+    const paypalVal = localStorage.getItem('aw-setting-paypal') || '';
     
     const kakaopayLink = document.getElementById('support-kakaopay-link');
-    const bmcLink = document.getElementById('support-bmc-link');
+    const paypalLink = document.getElementById('support-paypal-link');
     
     if (kakaopayLink) {
         if (kakaopayVal.trim()) {
@@ -1558,19 +1558,21 @@ function updateSupportLinks() {
         }
     }
     
-    if (bmcLink) {
-        if (bmcVal.trim()) {
-            let val = bmcVal.trim();
-            if (!val.includes('buymeacoffee.com')) {
-                bmcLink.href = `https://buymeacoffee.com/${val}`;
-            } else {
+    if (paypalLink) {
+        if (paypalVal.trim()) {
+            let val = paypalVal.trim();
+            if (val.includes('paypal.me') || val.includes('paypal.com')) {
                 if (!val.startsWith('http://') && !val.startsWith('https://')) {
                     val = `https://${val}`;
                 }
-                bmcLink.href = val;
+                paypalLink.href = val;
+            } else if (val.includes('@')) {
+                paypalLink.href = `https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${encodeURIComponent(val)}&currency_code=USD`;
+            } else {
+                paypalLink.href = `https://paypal.me/${val}`;
             }
         } else {
-            bmcLink.href = 'https://buymeacoffee.com';
+            paypalLink.href = 'https://www.paypal.com';
         }
     }
 }
@@ -1946,13 +1948,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         
         const storedKakaopay = localStorage.getItem('aw-setting-kakaopay') || '';
-        const storedBmc = localStorage.getItem('aw-setting-bmc') || '';
+        const storedPaypal = localStorage.getItem('aw-setting-paypal') || '';
         
         // Hide support section if BOTH support IDs are already filled
         const supportContainer = document.getElementById('settings-support-container');
         const supportDivider = document.getElementById('settings-support-divider');
         
-        if (storedKakaopay.trim() && storedBmc.trim()) {
+        if (storedKakaopay.trim() && storedPaypal.trim()) {
             if (supportContainer) supportContainer.style.display = 'none';
             if (supportDivider) supportDivider.style.display = 'none';
         } else {
@@ -1963,7 +1965,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Pre-populate setting fields with current values (show empty if not customized to prevent locking defaults)
         document.getElementById('setting-lofi').value = localStorage.getItem('aw-setting-lofi') || '';
         document.getElementById('setting-kakaopay').value = storedKakaopay;
-        document.getElementById('setting-bmc').value = storedBmc;
+        document.getElementById('setting-paypal').value = storedPaypal;
         
         // Handle potentially object-formatted city videos dynamically
         const getSettingVal = (cityKey) => {
@@ -2004,11 +2006,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.removeItem('aw-setting-kakaopay');
             }
             
-            const bmcInput = document.getElementById('setting-bmc').value.trim();
-            if (bmcInput) {
-                localStorage.setItem('aw-setting-bmc', bmcInput);
+            const paypalInput = document.getElementById('setting-paypal').value.trim();
+            if (paypalInput) {
+                localStorage.setItem('aw-setting-paypal', paypalInput);
             } else {
-                localStorage.removeItem('aw-setting-bmc');
+                localStorage.removeItem('aw-setting-paypal');
             }
             
             const keys = ['tokyo', 'seoul', 'paris', 'newyork', 'london', 'sydney', 'cartoon'];

@@ -644,16 +644,16 @@ input[type="range"]::-webkit-slider-thumb:hover {
     box-shadow: 0 6px 20px rgba(254, 229, 0, 0.5);
 }
 
-.bmc-btn {
-    background: #ffdd00;
-    color: #111111;
-    box-shadow: 0 4px 15px rgba(255, 221, 0, 0.3);
+.paypal-btn {
+    background: #0070ba;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 112, 186, 0.3);
 }
 
-.bmc-btn:hover {
-    background: #ffea00;
+.paypal-btn:hover {
+    background: #007bc8;
     transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 6px 20px rgba(255, 221, 0, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 112, 186, 0.5);
 }
 
 .paypal-link {
