@@ -528,11 +528,18 @@ input[type="range"]::-webkit-slider-thumb:hover {
     border-radius: 6px;
     color: var(--text-primary);
     font-size: 11px;
-    padding: 3px 8px;
+    padding: 4px 24px 4px 8px;
     outline: none;
     cursor: pointer;
     font-family: var(--font-main);
     transition: all 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    background-size: 14px;
 }
 
 .sound-select:hover {
@@ -685,9 +692,25 @@ input[type="range"]::-webkit-slider-thumb:hover {
 @media (max-width: 900px) {
     .app-ui {
         grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr auto;
+        grid-template-rows: auto auto auto;
         padding: 16px;
         gap: 16px;
+        height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .app-ui::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .app-ui::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .app-ui::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 2px;
     }
 
     .top-bar {
