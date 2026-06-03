@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraWindow | 방구석 세계 창문</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Outfit:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=13">
+</head>
+<body>
+    <!-- Intro Overlay: triggers browser autoplay on click -->
+    <div id="intro-overlay">
+        <div class="intro-content">
+            <div class="intro-logo">
+                <i class="fa-solid fa-globe intro-globe"></i>
+            </div>
+            <h1 class="intro-title">AuraWindow</h1>
+            <p class="intro-subtitle">방구석 세계 창문</p>
+            <button id="intro-enter-btn">
+                <i class="fa-solid fa-play"></i>
+                <span>Enter</span>
+            </button>
+            <p class="intro-hint">클릭하면 배경음악과 함께 시작됩니다</p>
+        </div>
+    </div>
+    
+    <!-- Sleep Overlay: dims the screen when timer expires -->
+    <div id="sleep-overlay" class="hidden">
+        <div class="sleep-content">
+            <i class="fa-solid fa-moon sleep-icon"></i>
+            <h2 class="sleep-title" id="sleep-title">Good Night</h2>
+            <button id="sleep-wake-btn">Wake Up</button>
+        </div>
+    </div>
+
+    <!-- Background Video Container -->
+    <div class="video-background" id="video-background">
+        <div id="main-player"></div>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- AI Ghibli Slideshow (shown when Cartoon Room is selected) -->
+    <div id="ghibli-slideshow" class="ghibli-slideshow hidden">
+        <div class="ghibli-slide active" data-scene="morning"><img src="ghibli/morning.png" alt="Ghibli Morning"></div>
+        <div class="ghibli-slide" data-scene="library"><img src="ghibli/library.png" alt="Ghibli Library"></div>
+        <div class="ghibli-slide" data-scene="sunset"><img src="ghibli/sunset.png" alt="Ghibli Sunset"></div>
+        <div class="ghibli-slide" data-scene="night"><img src="ghibli/night.png" alt="Ghibli Night"></div>
+        <div class="ghibli-slide" data-scene="rain"><img src="ghibli/rain.png" alt="Ghibli Rain"></div>
+        <div class="ghibli-slide" data-scene="snow"><img src="ghibli/snow.png" alt="Ghibli Snow"></div>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Hidden Audio Players Container -->
+    <div class="hidden-audio-players">
+        <div id="lofi-player"></div>
+        <div id="rain-player"></div>
+        <div id="cafe-player"></div>
+        <div id="fire-player"></div>
+    </div>
+
+    <!-- Main UI Overlay -->
+    <div id="app-ui" class="app-ui">
+        
+        <!-- Top Navigation / Status bar -->
+        <header class="top-bar">
+            <div class="brand">
+                <i class="fa-solid fa-window-maximize brand-icon"></i>
+                <span class="brand-name">AuraWindow</span>
+            </div>
+            
+            <div class="status-widgets">
+                <!-- Weather Widget -->
+                <div id="weather-widget" class="weather-widget glass-panel">
+                    <span class="weather-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> 날씨 정보...</span>
+                </div>
+                <!-- Digital Clock Widget -->
+                <div class="clock-widget glass-panel">
+                    <span id="clock-time">00:00:00</span>
+                    <span id="clock-date">2026.06.03 SUN</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Right Sidebar: City Selector -->
+        <aside class="sidebar glass-panel">
+            <h2 class="sidebar-title">전 세계 창문 열기</h2>
+            <div class="city-list">
+                <button class="city-btn active" data-city="tokyo">
+                    <span class="city-name-kr">도쿄</span>
+                    <span class="city-name-en">Tokyo, Japan</span>
+                    <span class="city-tag" id="tag-tokyo"><i class="fa-solid fa-circle-notch fa-spin"></i> 로딩...</span>
+                </button>
+                <button class="city-btn" data-city="seoul">
+                    <span class="city-name-kr">서울</span>
+                    <span class="city-name-en">Seoul, South Korea</span>
+                    <span class="city-tag" id="tag-seoul"><i class="fa-solid fa-circle-notch fa-spin"></i> 로딩...</span>
+                </button>
+                <button class="city-btn" data-city="paris">
+                    <span class="city-name-kr">파리</span>
+                    <span class="city-name-en">Paris, France</span>
+                    <span class="city-tag" id="tag-paris"><i class="fa-solid fa-circle-notch fa-spin"></i> 로딩...</span>
+                </button>
+                <button class="city-btn" data-city="newyork">
+                    <span class="city-name-kr">뉴욕</span>
+                    <span class="city-name-en">New York, USA</span>
+                    <span class="city-tag" id="tag-newyork"><i class="fa-solid fa-circle-notch fa-spin"></i> 로딩...</span>
+                </button>
+                <button class="city-btn" data-city="london">
+                    <span class="city-name-kr">런던</span>
+                    <span class="city-name-en">London, UK</span>
+                    <span class="city-tag" id="tag-london"><i class="fa-solid fa-circle-notch fa-spin"></i> 로딩...</span>
+                </button>
+                <button class="city-btn" data-city="sydney">
+                    <span class="city-name-kr">시드니</span>
+                    <span class="city-name-en">Sydney, Australia</span>
+                    <span class="city-tag" id="tag-sydney"><i class="fa-solid fa-circle-notch fa-spin"></i> 로딩...</span>
+                </button>
+                <button class="city-btn" data-city="cartoon">
+                    <span class="city-name-kr">만화 속 공부방</span>
+                    <span class="city-name-en">Cozy Cartoon Room</span>
+                    <span class="city-tag" id="tag-cartoon"><i class="fa-solid fa-circle-notch fa-spin"></i> 로딩...</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Bottom Controller Panel -->
+        <main class="bottom-controls">
+            <!-- Sound Mixer Panel -->
+            <div class="mixer-panel glass-panel">
+                <div class="mixer-header">
+                    <h3><i class="fa-solid fa-sliders"></i> 백색 소음 믹서</h3>
+                    <div class="mixer-actions" style="display: flex; gap: 8px;">
+                        <button id="skip-video-btn" class="control-btn" title="다음 영상"><i class="fa-solid fa-forward-step"></i></button>
+                        <button id="master-mute-btn" class="control-btn" title="음소거"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                </div>
+                
+                <div class="mixer-grid">
+                    <!-- Lofi Music -->
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <div class="label-left">
+                                <i class="fa-solid fa-music"></i>
+                                <span>로파이 음악</span>
+                            </div>
+                        </div>
+                        <input type="range" id="vol-lofi" min="0" max="100" value="30">
+                    </div>
+                    
+                    <!-- Rain Sound -->
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <div class="label-left">
+                                <i class="fa-solid fa-cloud-rain"></i>
+                                <span>빗소리</span>
+                            </div>
+                            <select id="select-rain" class="sound-select">
+                                <option value="shower">🌧️ 소나기</option>
+                                <option value="window">💧 창문의 비</option>
+                                <option value="forest">🌲 숲속의 비</option>
+                            </select>
+                        </div>
+                        <input type="range" id="vol-rain" min="0" max="100" value="0">
+                    </div>
+
+                    <!-- Cafe Sound -->
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <div class="label-left">
+                                <i class="fa-solid fa-mug-hot"></i>
+                                <span>카페 소음</span>
+                            </div>
+                            <select id="select-cafe" class="sound-select">
+                                <option value="busy">☕ 북적이는 카페</option>
+                                <option value="jazz">🎷 재즈 카페</option>
+                                <option value="cozy">📖 아늑한 서재</option>
+                            </select>
+                        </div>
+                        <input type="range" id="vol-cafe" min="0" max="100" value="0">
+                    </div>
+
+                    <!-- Fireplace Sound -->
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <div class="label-left">
+                                <i class="fa-solid fa-fire"></i>
+                                <span>모닥불</span>
+                            </div>
+                            <select id="select-fire" class="sound-select">
+                                <option value="fireplace">🏡 벽난로</option>
+                                <option value="campfire">🏕️ 야외 캠프파이어</option>
+                                <option value="storm">⚡ 폭풍우 속 벽난로</option>
+                            </select>
+                        </div>
+                        <input type="range" id="vol-fire" min="0" max="100" value="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus / UX Utilities -->
+            <div class="utility-panel glass-panel">
+                <div class="lang-select-container">
+                    <button id="lang-btn" class="utility-btn" title="언어 선택 / Language">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span>언어 선택</span>
+                    </button>
+                    <div id="lang-dropdown" class="lang-dropdown glass-panel hidden">
+                        <button type="button" class="lang-option" data-lang="ko">한국어 (KO)</button>
+                        <button type="button" class="lang-option" data-lang="en">English (EN)</button>
+                        <button type="button" class="lang-option" data-lang="ja">日本語 (JA)</button>
+                    </div>
+                </div>
+                <div class="timer-select-container">
+                    <button id="timer-btn" class="utility-btn" title="취면 타이머 / Sleep Timer">
+                        <i class="fa-solid fa-clock"></i>
+                        <span id="timer-btn-text">타이머 Off</span>
+                    </button>
+                    <div id="timer-dropdown" class="timer-dropdown glass-panel hidden">
+                        <button type="button" class="timer-option" data-time="0">타이머 끄기</button>
+                        <button type="button" class="timer-option" data-time="10">10분</button>
+                        <button type="button" class="timer-option" data-time="30">30분</button>
+                        <button type="button" class="timer-option" data-time="60">60분</button>
+                        <button type="button" class="timer-option" data-time="120">120분</button>
+                        <div class="custom-timer-input">
+                            <input type="number" id="custom-timer-min" placeholder="분" min="1" max="999">
+                            <button type="button" id="custom-timer-start-btn">설정</button>
+                        </div>
+                    </div>
+                </div>
+                <button id="zen-mode-btn" class="utility-btn" title="화면 비우기 (일정 시간 뒤 UI 숨김)">
+                    <i class="fa-solid fa-eye-slash"></i>
+                    <span>집중 모드</span>
+                </button>
+                <button id="settings-btn" class="utility-btn" title="커스텀 영상/음악 설정">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>설정</span>
+                </button>
+                <button id="about-btn" class="utility-btn" title="후원 및 정보">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>후원하기</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Support Modal -->
+    <div id="support-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <button class="close-modal-btn">&times;</button>
+            <h2>AuraWindow 후원하기</h2>
+            <p>AuraWindow를 이용해 주셔서 감사합니다. 여러분의 따뜻한 응원이 더 매력적인 방구석 세계 창문을 추가하고 서비스를 유지하는 데 큰 도움이 됩니다.</p>
+            <div class="support-methods">
+                <a id="support-kakaopay-link" href="https://www.kakaopay.com" target="_blank" class="support-link kakaopay-btn">
+                    <i class="fa-solid fa-comment"></i> 카카오페이 송금하기
+                </a>
+                <a id="support-bmc-link" href="https://buymeacoffee.com" target="_blank" class="support-link bmc-btn">
+                    <i class="fa-solid fa-mug-hot"></i> Buy Me a Coffee
+                </a>
+            </div>
+            <div class="creator-credits">
+                <p>Designed with <i class="fa-solid fa-heart" style="color: #ff4a5a;"></i> by AuraWindow</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel" style="max-width: 500px; text-align: left;">
+            <button class="close-modal-btn" id="close-settings-btn">&times;</button>
+            <h2 style="text-align: center; margin-bottom: 16px; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">영상 및 음악 설정</h2>
+            <p style="text-align: center; font-size: 12px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.5;">
+                유튜브 영상이 차단되었거나 원하는 감성 영상이 따로 있다면, 직접 유튜브 영상 주소(URL) 또는 ID를 넣어 자유롭게 나만의 창문으로 세팅할 수 있습니다.
+            </p>
+            <form id="settings-form" style="display: flex; flex-direction: column; gap: 16px;">
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                    <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase;">로파이 배경 음악 (유튜브 링크/ID)</label>
+                    <input type="text" id="setting-lofi" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; color: white; width: 100%; font-family: var(--font-main); outline: none;" placeholder="예: aqz-KE-bpKQ">
+                </div>
+                <div style="height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0;"></div>
+                <div class="form-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">카카오페이 송금코드/링크</label>
+                        <input type="text" id="setting-kakaopay" placeholder="예: Ez9j94i 또는 전체 링크" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">Buy Me a Coffee 아이디</label>
+                        <input type="text" id="setting-bmc" placeholder="예: bmcid" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                </div>
+                <div style="height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0;"></div>
+                <div class="form-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">도쿄 비디오 ID</label>
+                        <input type="text" id="setting-tokyo" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">서울 비디오 ID</label>
+                        <input type="text" id="setting-seoul" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">파리 비디오 ID</label>
+                        <input type="text" id="setting-paris" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">뉴욕 비디오 ID</label>
+                        <input type="text" id="setting-newyork" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">런던 비디오 ID</label>
+                        <input type="text" id="setting-london" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">시드니 비디오 ID</label>
+                        <input type="text" id="setting-sydney" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; grid-column: span 2;">
+                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">만화 속 공부방 비디오 ID</label>
+                        <input type="text" id="setting-cartoon" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; width: 100%; outline: none;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px;">
+                    <button type="button" id="reset-settings-btn" style="width: 100%; cursor: pointer; justify-content: center; font-family: var(--font-main); background: rgba(255, 64, 129, 0.1); border: 1px solid rgba(255, 64, 129, 0.25); color: #ff4081; border-radius: 30px; padding: 14px 20px; font-weight: 700; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-trash-can"></i> <span id="reset-settings-btn-text">설정 초기화</span>
+                    </button>
+                    <button type="submit" class="paypal-link" style="width: 100%; border: none; cursor: pointer; justify-content: center; font-family: var(--font-main); border-radius: 30px; padding: 14px 20px; font-size: 14px;">
+                        <i class="fa-solid fa-floppy-disk"></i> <span id="save-settings-btn-text">설정 저장 및 적용</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- KakaoPay QR Modal -->
+    <div id="kakaopay-qr-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel" style="max-width: 360px; padding: 30px;">
+            <button class="close-modal-btn" id="close-qr-btn">&times;</button>
+            <h2 style="font-size: 20px; margin-bottom: 12px; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">카카오페이 송금하기</h2>
+            <p style="font-size: 13px; margin-bottom: 20px; line-height: 1.5; color: var(--text-secondary);">스마트폰 카메라 또는 카카오톡 QR 스캐너로 아래 코드를 스캔해 주세요.</p>
+            <div class="qr-container" style="background: white; padding: 16px; border-radius: var(--border-radius-md); display: inline-block; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                <img id="kakaopay-qr-img" src="" alt="KakaoPay QR Code" style="display: block; width: 180px; height: 180px;">
+            </div>
+            <div style="font-size: 12px; color: var(--text-secondary);">
+                <span id="kakaopay-qr-fallback-text"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="site-footer">
+        <span class="footer-copy">&copy; 2025 AuraWindow</span>
+        <span class="footer-sep">·</span>
+        <a href="mailto:orara82@gmail.com" class="footer-link">orara82@gmail.com</a>
+        <span class="footer-sep">·</span>
+        <span class="footer-attr">Weather by <a href="https://open-meteo.com" target="_blank" rel="noopener" class="footer-link">Open-Meteo</a></span>
+        <span class="footer-sep">·</span>
+        <span class="footer-attr">Videos via YouTube API</span>
+    </footer>
+
+    <script src="app.js?v=14"></script>
+</body>
+</html>
