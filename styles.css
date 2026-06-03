@@ -694,20 +694,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
         display: none !important;
     }
 
-    body, html {
-        overflow-y: auto !important;
-        height: auto !important;
-        min-height: 100dvh !important;
-    }
-
     .app-ui {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
         padding: 12px;
         gap: 12px;
-        height: auto !important;
-        min-height: 100dvh;
-        overflow: visible !important;
         -webkit-overflow-scrolling: touch;
     }
     
@@ -905,6 +895,37 @@ input[type="range"]::-webkit-slider-thumb:hover {
         padding: 30px 20px !important;
         max-height: 85vh;
         overflow-y: auto;
+    }
+}
+
+/* Height-based adjustments for mobile viewports */
+@media (max-width: 900px) and (min-height: 500px) {
+    /* Portrait mode / tall screens: make it fit perfectly without scroll */
+    body, html {
+        height: 100dvh !important;
+        overflow: hidden !important;
+    }
+
+    .app-ui {
+        grid-template-rows: auto auto 1fr;
+        height: 100dvh !important;
+        overflow: hidden !important;
+    }
+}
+
+@media (max-width: 900px) and (max-height: 499px) {
+    /* Landscape mode / short screens: allow scrolling */
+    body, html {
+        overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100dvh !important;
+    }
+
+    .app-ui {
+        grid-template-rows: auto auto auto;
+        height: auto !important;
+        min-height: 100dvh;
+        overflow: visible !important;
     }
 }
 
