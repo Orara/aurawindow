@@ -91,7 +91,7 @@ const cities = {
         lat: 37.5665,
         lon: 126.9780,
         timezone: 'Asia/Seoul',
-        music: ['7NOSDKb0HlU', 'YQs7IVvvVYw']
+        music: ['YQs7IVvvVYw', '7NOSDKb0HlU']
     },
     paris: {
         videos: [
@@ -112,7 +112,7 @@ const cities = {
         lat: 48.8566,
         lon: 2.3522,
         timezone: 'Europe/Paris',
-        music: ['_DYAnU3H7RI', '5XKXfCdfmNc', 'AznRJvAPtwM']
+        music: ['5jaT_8hy3Vg', 'sX5lzm0FjYI', '_DYAnU3H7RI']
     },
     newyork: {
         videos: [
@@ -135,7 +135,7 @@ const cities = {
         lat: 40.7128,
         lon: -74.0060,
         timezone: 'America/New_York',
-        music: ['ZhFa3YmsgFI', '7NOSDKb0HlU', '_DYAnU3H7RI']
+        music: ['5l8khj88MFQ', 'n61ULEU7CO0', 'p_vEUb65XtU']
     },
     london: {
         videos: [
@@ -157,7 +157,7 @@ const cities = {
         lat: 51.5074,
         lon: -0.1278,
         timezone: 'Europe/London',
-        music: ['7NOSDKb0HlU', 'Tlw1Oac7KxQ', '_DYAnU3H7RI']
+        music: ['ZjZFzghY7Ew', 'zdXa6Ha91QQ', 'CFGLoQIhmow']
     },
     sydney: {
         videos: [
@@ -182,7 +182,7 @@ const cities = {
         lat: -33.8688,
         lon: 151.2093,
         timezone: 'Australia/Sydney',
-        music: ['ZhFa3YmsgFI', 'YQs7IVvvVYw', 'AznRJvAPtwM']
+        music: ['aAvMDmN1t5A', '7NOSDKb0HlU', 'YQs7IVvvVYw']
     },
     cartoon: {
         videos: [], // Cartoon room uses Ghibli AI image slideshow instead of YouTube
@@ -192,7 +192,7 @@ const cities = {
         lat: 35.6895,
         lon: 139.6917,
         timezone: 'Asia/Tokyo',
-        music: ['ZhFa3YmsgFI', 'qdbufMYZHJ4', 'AznRJvAPtwM'],
+        music: ['6_z2s6y0mD0', 'JDM6TDiDlAg', 'jfKfPfyJRdk', 'PKFjKOBg7uo'],
         useGhibliSlideshow: true  // special flag: show AI image slideshow
     }
 };
@@ -686,12 +686,7 @@ function updateLofiPlaylistForCity(cityKey) {
         list.unshift(storedLofi);
     }
     
-    // Shuffle the list
-    const customExists = !!storedLofi;
-    let listToShuffle = customExists ? list.slice(1) : list;
-    shuffleArray(listToShuffle);
-    
-    activeLofiPlaylist = customExists ? [storedLofi, ...listToShuffle] : listToShuffle;
+    activeLofiPlaylist = list;
     currentLofiIndex = 0;
 }
 
