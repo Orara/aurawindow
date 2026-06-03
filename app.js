@@ -91,7 +91,7 @@ const cities = {
         lat: 37.5665,
         lon: 126.9780,
         timezone: 'Asia/Seoul',
-        music: ['JN6HuGEWgHE', '7NOSDKb0HlU', 'YQs7IVvvVYw']
+        music: ['7NOSDKb0HlU', 'YQs7IVvvVYw']
     },
     paris: {
         videos: [
@@ -2261,6 +2261,47 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             wakeUp();
         });
+    }
+
+    // Collapsible Mixer Panel on Mobile
+    const mixerHeader = document.querySelector('.mixer-header');
+    const mixerPanel = document.querySelector('.mixer-panel');
+    if (mixerHeader && mixerPanel) {
+        const mixerTitle = mixerHeader.querySelector('h3');
+        if (mixerTitle) {
+            mixerTitle.style.cursor = 'pointer';
+            
+            // Add expand/collapse icon
+            const chevron = document.createElement('i');
+            chevron.className = 'fa-solid fa-chevron-down toggle-icon';
+            chevron.style.fontSize = '12px';
+            chevron.style.marginLeft = '8px';
+            chevron.style.transition = 'transform 0.3s ease';
+            mixerTitle.appendChild(chevron);
+
+            // Toggle collapse function
+            const toggleMixer = () => {
+                if (window.innerWidth <= 900) {
+                    mixerPanel.classList.toggle('collapsed');
+                    const chevronIcon = mixerHeader.querySelector('.toggle-icon');
+                    if (chevronIcon) {
+                        if (mixerPanel.classList.contains('collapsed')) {
+                            chevronIcon.style.transform = 'rotate(0deg)';
+                        } else {
+                            chevronIcon.style.transform = 'rotate(180deg)';
+                        }
+                    }
+                }
+            };
+
+            // Event listener for header title click
+            mixerTitle.addEventListener('click', toggleMixer);
+
+            // Start collapsed by default on mobile
+            if (window.innerWidth <= 900) {
+                mixerPanel.classList.add('collapsed');
+            }
+        }
     }
 
     // Apply initial language translation on start

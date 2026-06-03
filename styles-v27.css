@@ -380,6 +380,10 @@ body, html {
     gap: 8px;
 }
 
+.mixer-header h3 .toggle-icon {
+    display: none;
+}
+
 .mixer-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -821,6 +825,14 @@ input[type="range"]::-webkit-slider-thumb:hover {
         margin-bottom: 6px;
     }
 
+    .mixer-header h3 .toggle-icon {
+        display: inline-block;
+    }
+
+    .mixer-panel.collapsed .mixer-grid {
+        display: none !important;
+    }
+
     .mixer-grid {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -892,6 +904,20 @@ input[type="range"]::-webkit-slider-thumb:hover {
         padding: 30px 20px !important;
         max-height: 85vh;
         overflow-y: auto;
+    }
+
+    /* Center Zen Mode button horizontally at the bottom on mobile */
+    .app-ui.zen-mode #zen-mode-btn {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        bottom: 24px !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        padding: 12px 24px !important;
+        width: auto !important;
     }
 }
 
