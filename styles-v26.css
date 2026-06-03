@@ -771,20 +771,12 @@ input[type="range"]::-webkit-slider-thumb:hover {
         -webkit-overflow-scrolling: touch;
         width: 100%;
         min-width: 0;
+        -ms-overflow-style: none !important;  /* IE and Edge */
+        scrollbar-width: none !important;  /* Firefox */
     }
 
     .city-list::-webkit-scrollbar {
-        height: 4px;
-    }
-
-    .city-list::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: 2px;
-    }
-
-    .city-list::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 2px;
+        display: none !important; /* Hide scrollbar completely on mobile */
     }
 
     .city-btn {
@@ -830,19 +822,19 @@ input[type="range"]::-webkit-slider-thumb:hover {
     }
 
     .mixer-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px 10px;
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 
     .slider-group {
-        gap: 2px;
+        gap: 6px;
     }
 
     .utility-panel {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        padding: 4px;
-        gap: 4px;
+        padding: 6px;
+        gap: 6px;
     }
 
     .utility-btn, .timer-select-container, .lang-select-container {
@@ -854,11 +846,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 2px !important;
-        padding: 6px 2px !important;
-        font-size: 8.5px !important;
+        gap: 4px !important;
+        padding: 8px 4px !important;
+        font-size: 9px !important;
         height: auto !important;
-        border-radius: 8px !important;
+        border-radius: 10px !important;
         text-align: center;
     }
 
