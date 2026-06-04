@@ -498,12 +498,12 @@ const GHIBLI_SLIDE_INTERVAL = 10000; // 10 seconds per slide
 
 // Map weather states to preferred Ghibli slide scenes
 const GHIBLI_STATE_SLIDE = {
-    rain: 'rain',
-    snow: 'snow',
+    rain: 'rainy_study',
+    snow: 'snowy_study',
     night: 'night',
-    sunrise: 'morning',
-    sunset: 'sunset',
-    day: 'morning',
+    sunrise: 'sunny_study',
+    sunset: 'sunset_study',
+    day: 'sunny_study',
     default: 'library'
 };
 
