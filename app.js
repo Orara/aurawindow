@@ -309,7 +309,11 @@ const translations = {
         },
         sleepGoodNight: "안녕히 주무세요",
         sleepWakeUp: "화면 깨우기",
-        skipBtnTitle: "다음 영상으로 넘기기"
+        skipBtnTitle: "다음 영상으로 넘기기",
+        footerStorageInfo: "개인정보 보관 정책: 100% 로컬 브라우저 저장",
+        footerPrivacyBtn: "개인정보 처리방침",
+        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 모든 설정과 커스텀 영상 정보는 개인 브라우저(localStorage)에만 안전하게 보관됩니다.",
+        privacyAlert: "🔒 개인정보 처리방침 및 안내:\n\n'AuraWindow'는 사용자가 커스텀 설정한 유튜브 동영상 ID, 배경 로파이 음악 링크, 카카오페이/페이팔 후원 계정 정보 등 어떠한 개인 데이터도 외부 서버로 전송하거나 수집하지 않습니다.\n\n모든 개인 설정은 오직 사용자의 웹 브라우저 로컬 저장소(localStorage)에만 프라이빗하게 보관되며, 브라우저의 인터넷 사용 기록(캐시)을 삭제하거나 설정창에서 '초기화' 버튼을 누르면 영구 삭제됩니다.\n\n안심하고 여러분만의 아늑한 창문을 즐겨보세요!"
     },
     en: {
         brandTitle: "AuraWindow | Ambient Window to the World",
@@ -386,7 +390,11 @@ const translations = {
         },
         sleepGoodNight: "Good Night",
         sleepWakeUp: "Wake Up",
-        skipBtnTitle: "Skip to next video"
+        skipBtnTitle: "Skip to next video",
+        footerStorageInfo: "Privacy: 100% Local Browser Storage",
+        footerPrivacyBtn: "Privacy Policy",
+        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. All visual settings and ambient options are stored safely inside your browser's localStorage.",
+        privacyAlert: "🔒 Privacy Policy & Info:\n\n'AuraWindow' does not collect or transmit any of your personal data, custom YouTube video IDs, background music links, or support information to external servers.\n\nAll configurations are saved strictly inside your local web browser storage (localStorage). Clearing your browser cookies/cache or clicking 'Reset Settings' will permanently delete all stored preference data.\n\nEnjoy your personal, cozy ambient window with complete peace of mind!"
     },
     ja: {
         brandTitle: "AuraWindow | 世界の窓",
@@ -463,7 +471,11 @@ const translations = {
         },
         sleepGoodNight: "おやすみなさい",
         sleepWakeUp: "画面を起動",
-        skipBtnTitle: "次の動画へスキップ"
+        skipBtnTitle: "次の動画へスキップ",
+        footerStorageInfo: "個人情報保護: 100%ローカルブラウザ保存",
+        footerPrivacyBtn: "個人情報処理方針",
+        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. すべての背景音楽URLおよび個人設定は、ブラウザのローカルストレージ（localStorage）にのみ安全に保管されます。",
+        privacyAlert: "🔒 個人情報処理方針とご案内:\n\n'AuraWindow'は、ユーザーがカスタム設定したYouTubeの動画ID、背景のLofi音楽リンク、送金コードなど、いかなる個人データも外部サーバーに送信または収集することはありません。\n\nすべての設定情報は、ユーザーのウェブブラウザのローカルストレージ（localStorage）にのみプライベートに保存され、ブラウザキャッシュを削除するか、設定画面で「初期化」ボタンを押すと完全に削除されます。\n\nどうぞ安心してお好みの世界の窓をお楽しみください！"
     }
 };
 
@@ -938,6 +950,16 @@ function applyTranslations(lang) {
     // Skip video button title
     const skipBtn = document.getElementById('skip-video-btn');
     if (skipBtn) skipBtn.title = dict.skipBtnTitle || '다음 영상';
+
+    // Update footer translations
+    const footerStorageInfo = document.getElementById('footer-storage-info');
+    if (footerStorageInfo) footerStorageInfo.textContent = dict.footerStorageInfo;
+
+    const footerPrivacyBtn = document.getElementById('footer-privacy-btn');
+    if (footerPrivacyBtn) footerPrivacyBtn.textContent = dict.footerPrivacyBtn;
+
+    const footerCopyrightDesc = document.getElementById('footer-copyright-desc');
+    if (footerCopyrightDesc) footerCopyrightDesc.innerHTML = dict.footerCopyrightDesc;
 
     localStorage.setItem('aw-lang', lang);
     
@@ -1792,6 +1814,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const decodedEmail = atob(OB_PP);
         emailLink.href = `mailto:${decodedEmail}`;
         emailLink.textContent = decodedEmail;
+    }
+
+    // Connect footer privacy policy alert
+    const privacyBtn = document.getElementById('footer-privacy-btn');
+    if (privacyBtn) {
+        privacyBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const currentLang = localStorage.getItem('aw-lang') || 'ko';
+            const dict = translations[currentLang] || translations.ko;
+            alert(dict.privacyAlert);
+        });
     }
     
     // 2. Fetch Weather for All Cities (Batch)

@@ -1237,19 +1237,37 @@ input[type="range"]::-webkit-slider-thumb:hover {
     right: 0;
     z-index: 50;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 7px 20px;
-    background: rgba(5, 5, 12, 0.55);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    gap: 4px;
+    padding: 8px 20px;
+    background: rgba(5, 5, 12, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-top: 1px solid rgba(255,255,255,0.04);
     font-size: 10.5px;
     color: rgba(255,255,255,0.28);
     font-weight: 400;
     letter-spacing: 0.2px;
     pointer-events: none;
+}
+
+#site-footer .footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#site-footer .footer-row.bottom-row {
+    opacity: 0.8;
+}
+
+#site-footer .footer-brand {
+    font-weight: 700;
+    color: rgba(255,255,255,0.42);
 }
 
 #site-footer .footer-link {
@@ -1269,7 +1287,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* Push bottom controls up so footer doesn't overlap */
 .bottom-controls {
-    padding-bottom: 28px;
+    padding-bottom: 42px;
 }
 
 /* =============================
