@@ -1476,20 +1476,20 @@ input[type="range"]::-webkit-slider-thumb:hover {
     gap: 6px;
     z-index: 50;
     pointer-events: auto;
-    background: rgba(255, 255, 255, 0.12) !important;
-    backdrop-filter: blur(25px) saturate(190%) !important;
-    -webkit-backdrop-filter: blur(25px) saturate(190%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.25) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
     border-radius: var(--border-radius-md);
     transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, border-color 0.3s ease;
 }
 
 .now-playing-widget:hover {
-    border-color: rgba(255, 255, 255, 0.35) !important;
-    background: rgba(255, 255, 255, 0.18) !important;
-    box-shadow: 0 12px 40px 0 rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.28), inset 0 1px 0 0 rgba(255, 255, 255, 0.35) !important;
 }
 
 .now-playing-widget.hidden {
@@ -1510,7 +1510,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     align-items: center;
     gap: 10px;
     font-size: 13px;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.9) !important;
     overflow: hidden;
 }
 
@@ -1520,6 +1520,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
     width: 16px;
     text-align: center;
     flex-shrink: 0;
+}
+
+.now-playing-widget .media-icon {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .media-title {
