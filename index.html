@@ -71,18 +71,6 @@
     <!-- Main UI Overlay -->
     <div id="app-ui" class="app-ui">
         
-        <!-- Now Playing Media Widget (Floating) -->
-        <div id="now-playing-widget" class="now-playing-widget glass-panel">
-            <div class="media-info-row">
-                <i class="fa-solid fa-video media-icon"></i>
-                <span id="now-playing-video" class="media-title">Video: Loading...</span>
-            </div>
-            <div class="media-info-row">
-                <i class="fa-solid fa-music media-icon"></i>
-                <span id="now-playing-music" class="media-title">Music: Loading...</span>
-            </div>
-        </div>
-
         <!-- Top Navigation / Status bar -->
         <header class="top-bar">
             <div class="brand">
@@ -90,15 +78,28 @@
                 <span class="brand-name">AuraWindow</span>
             </div>
             
-            <div class="status-widgets">
-                <!-- Weather Widget -->
-                <div id="weather-widget" class="weather-widget glass-panel">
-                    <span class="weather-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> 날씨 정보...</span>
+            <div class="top-bar-right">
+                <div class="status-widgets">
+                    <!-- Weather Widget -->
+                    <div id="weather-widget" class="weather-widget glass-panel">
+                        <span class="weather-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> 날씨 정보...</span>
+                    </div>
+                    <!-- Digital Clock Widget -->
+                    <div class="clock-widget glass-panel">
+                        <span id="clock-time">00:00:00</span>
+                        <span id="clock-date">2026.06.03 SUN</span>
+                    </div>
                 </div>
-                <!-- Digital Clock Widget -->
-                <div class="clock-widget glass-panel">
-                    <span id="clock-time">00:00:00</span>
-                    <span id="clock-date">2026.06.03 SUN</span>
+                <!-- Now Playing Media Widget -->
+                <div id="now-playing-widget" class="now-playing-widget glass-panel">
+                    <div class="media-info-row">
+                        <i class="fa-solid fa-video media-icon"></i>
+                        <span id="now-playing-video" class="media-title">Video: Loading...</span>
+                    </div>
+                    <div class="media-info-row">
+                        <i class="fa-solid fa-music media-icon"></i>
+                        <span id="now-playing-music" class="media-title">Music: Loading...</span>
+                    </div>
                 </div>
             </div>
         </header>
