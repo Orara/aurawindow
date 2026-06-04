@@ -1778,6 +1778,9 @@ setTimeout(() => {
 // Initialize Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOMContentLoaded event fired.');
+    // 0. Initialize Visitor Session Counter
+    initVisitorCounter();
+
     // 1. Setup Clock & Support Links
     updateClock();
     setInterval(updateClock, 1000);
@@ -2006,7 +2009,30 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('setting-cartoon').value = getSettingVal('cartoon');
         
         settingsModal.classList.remove('hidden');
+        checkAdminState();
     });
+
+    // 9b. Settings modal header click (Secret Admin panel)
+    const settingsTitle = document.querySelector('#settings-modal h2');
+    if (settingsTitle) {
+        settingsTitle.addEventListener('click', async (e) => {
+            settingsTitleClicks++;
+            if (settingsTitleClicks >= 5) {
+                settingsTitleClicks = 0;
+                const passwordInput = prompt("관리자 비밀번호를 입력하세요:");
+                if (passwordInput === null) return;
+                
+                const hashedPassword = await sha256(passwordInput);
+                const targetHash = "ab7e67e9480cb9aecd206859cd28e942c5647ad85e6e3e5f1fb20783828ed190";
+                
+                if (hashedPassword === targetHash) {
+                    revealVisitorCount();
+                } else {
+                    alert("비밀번호가 올바르지 않습니다.");
+                }
+            }
+        });
+    }
 
     closeSettingsBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -2337,5 +2363,59 @@ if (window.YT && window.YT.Player) {
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     } else {
         document.head.appendChild(tag);
+    }
+}
+
+// ==========================================================================
+// Admin Visitor Counter Helpers
+// ==========================================================================
+async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+function initVisitorCounter() {
+    if (!sessionStorage.getItem('aurawindow-visited')) {
+        fetch('https://api.counterapi.dev/v1/aurawindow-orara/visits/up?cb=' + Date.now())
+            .then(res => res.json())
+            .then(data => {
+                sessionStorage.setItem('aurawindow-visited', 'true');
+                console.log("Visitor count session initialized");
+            })
+            .catch(err => console.error("Visitor Counter Up error:", err));
+    }
+}
+
+let settingsTitleClicks = 0;
+
+function revealVisitorCount() {
+    const adminSection = document.getElementById('admin-visits-section');
+    const countEl = document.getElementById('admin-visits-count');
+    if (!adminSection || !countEl) return;
+    
+    adminSection.style.display = 'flex';
+    localStorage.setItem('aurawindow-admin-unlocked', 'true');
+    
+    fetch('https://api.counterapi.dev/v1/aurawindow-orara/visits?cb=' + Date.now())
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.count !== undefined) {
+                countEl.textContent = `${data.count.toLocaleString('ko-KR')} 명`;
+            } else {
+                countEl.textContent = "데이터 없음";
+            }
+        })
+        .catch(err => {
+            console.error("Fetch counter error:", err);
+            countEl.textContent = "조회 실패";
+        });
+}
+
+function checkAdminState() {
+    if (localStorage.getItem('aurawindow-admin-unlocked') === 'true') {
+        revealVisitorCount();
     }
 }

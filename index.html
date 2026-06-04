@@ -332,6 +332,13 @@
                     </button>
                 </div>
             </form>
+            <!-- Admin Visitor Count (Secret Panel) -->
+            <div id="admin-visits-section" class="admin-visits-section" style="display: none; margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.15); flex-direction: column; gap: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 12px; font-weight: 700; color: var(--text-secondary);"><i class="fa-solid fa-users"></i> 누적 방문자 수</span>
+                    <span id="admin-visits-count" style="font-size: 15px; font-weight: 800; color: #00f2fe; text-shadow: 0 0 10px rgba(0,242,254,0.4);">로딩 중...</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -361,6 +368,6 @@
         <span class="footer-attr">Videos via YouTube API</span>
     </footer>
 
-    <script src="app.js?v=106"></script>
+    <script src="app.js?v=107"></script>
 </body>
 </html>
