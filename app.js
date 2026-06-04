@@ -476,6 +476,87 @@ const translations = {
         footerPrivacyBtn: "個人情報処理方針",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. すべての背景音楽URLおよび個人設定は、ブラウザのローカルストレージ（localStorage）にのみ安全に保管されます。",
         privacyAlert: "🔒 個人情報処理方針とご案内:\n\n'AuraWindow'は、ユーザーがカスタム設定したYouTubeの動画ID、背景のLofi音楽リンク、送金コードなど、いかなる個人データも外部サーバーに送信または収集することはありません。\n\nすべての設定情報は、ユーザーのウェブブラウザのローカルストレージ（localStorage）にのみプライベートに保存され、ブラウザキャッシュを削除するか、設定画面で「初期化」ボタンを押すと完全に削除されます。\n\nどうぞ安心してお好みの世界の窓をお楽しみください！"
+    },
+    zh: {
+        brandTitle: "AuraWindow | 环球窗景",
+        sidebarTitle: "打开世界之窗",
+        mixerTitle: "白噪音混音器",
+        soundLofi: "Lofi 音乐",
+        soundRain: "雨声",
+        soundCafe: "咖啡馆环境音",
+        soundFire: "篝火",
+        soundSelectRain: {
+            shower: "🌧️ 阵雨",
+            window: "💧 窗前的雨声",
+            forest: "🌲 森林雨声"
+        },
+        soundSelectCafe: {
+            busy: "☕ 熙攘的咖啡馆",
+            jazz: "🎷 爵士咖啡馆",
+            cozy: "📖 惬意的书房"
+        },
+        soundSelectFire: {
+            fireplace: "🏡 壁炉",
+            campfire: "🏕️ 户外篝火",
+            storm: "⚡ 暴风雨中的壁炉"
+        },
+        zenBtn: "专注模式",
+        zenBtnOn: "专注模式 ON",
+        settingsBtn: "设置",
+        aboutBtn: "赞助支持",
+        langBtn: "简体中文",
+        supportModalTitle: "赞助支持 AuraWindow",
+        supportModalDesc: "感谢您使用 AuraWindow。您的温暖支持将帮助我们添加更多美丽的窗景并维护此服务。",
+        supportKakaopay: "通过 KakaoPay 汇款",
+        supportPaypal: "通过 PayPal 赞助",
+        settingsModalTitle: "视频与音频设置",
+        settingsModalDesc: "如果某个 YouTube 视频被拦截，或者您有自己喜欢的背景视频，可以在此处输入 YouTube 视频 URL 或 ID 进行自定义。",
+        settingLofiLabel: "Lofi 背景音乐 (YouTube 链接/ID)",
+        settingKakaopayLabel: "KakaoPay 汇款链接/二维码",
+        settingPaypalLabel: "PayPal (PayPal.Me 链接或邮箱)",
+        settingSaveBtn: "保存设置并应用",
+        settingResetBtn: "重置设置",
+        kakaopayQrTitle: "KakaoPay 转账",
+        kakaopayQrDesc: "请使用智能手机相机或 KakaoTalk 二维码扫描器进行扫描。",
+        weatherDesc: {
+            '맑음': '晴',
+            '흐림': '阴',
+            '안개': '雾',
+            '이슬비': '毛毛雨',
+            '비': '雨',
+            '눈': '雪',
+            '뇌우': '雷阵雨',
+            '날씨 정보...': '天气信息...',
+            '날씨 로딩 중...': '天气加载中...',
+            '아늑함': '温馨'
+        },
+        cities: {
+            tokyo: { name: "东京", desc: "日本 东京" },
+            seoul: { name: "首尔", desc: "韩国 首尔" },
+            paris: { name: "巴黎", desc: "法国 巴黎" },
+            newyork: { name: "纽约", desc: "美国 纽约" },
+            london: { name: "伦敦", desc: "英国 伦敦" },
+            sydney: { name: "悉尼", desc: "澳大利亚 悉尼" },
+            cartoon: { name: "漫迷温馨小屋", desc: "动漫风环境书房" }
+        },
+        timerBtn: "定时关闭 Off",
+        timerBtnActive: "⏰ {min}分 {sec}秒",
+        timerDropdown: {
+            off: "关闭定时器",
+            min10: "10分钟",
+            min30: "30分钟",
+            min60: "60分钟",
+            min120: "120分钟",
+            customBtn: "设置",
+            customPlaceholder: "分"
+        },
+        sleepGoodNight: "晚安",
+        sleepWakeUp: "唤醒屏幕",
+        skipBtnTitle: "切换到下一个视频",
+        footerStorageInfo: "数据隐私：100% 浏览器本地存储",
+        footerPrivacyBtn: "隐私政策",
+        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 所有的设置和自定义视频信息仅安全地保存在您个人浏览器的本地存储（localStorage）中。",
+        privacyAlert: "🔒 隐私政策与声明:\n\n'AuraWindow' 不会将您自定义设置的 YouTube 视频 ID、背景 Lofi 音乐链接、转账赞助账户等任何个人数据传输或上传到外部服务器。\n\n所有的个人配置信息均安全地存储在您的本地浏览器存储（localStorage）中。清除浏览器缓存或在设置中点击'重置设置'将会彻底清除该数据。\n\n请放心定制您专属的世界窗景！"
     }
 };
 
@@ -2208,6 +2289,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     qrFallback.innerHTML = `스캔이 안 되시나요? <a href="${targetUrl}" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: 700;">이곳을 클릭</a>하여 페이지로 이동해 보세요.`;
                 } else if (savedLang === 'ja') {
                     qrFallback.innerHTML = `スキャンできない場合、 <a href="${targetUrl}" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: 700;">ここをクリック</a>してページに移動してください。`;
+                } else if (savedLang === 'zh') {
+                    qrFallback.innerHTML = `无法扫描？<a href="${targetUrl}" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: 700;">点击此处</a>直接访问链接。`;
                 } else {
                     qrFallback.innerHTML = `Scanning issues? <a href="${targetUrl}" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: 700;">Click here</a> to go to link directly.`;
                 }
@@ -2323,7 +2406,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     customMinInput.value = '';
                 } else {
                     const savedLang = localStorage.getItem('aw-lang') || 'ko';
-                    alert(savedLang === 'ko' ? '올바른 시간을 입력해 주세요.' : (savedLang === 'ja' ? '正しい時間を入力してください。' : 'Please enter a valid duration.'));
+                    alert(savedLang === 'ko' ? '올바른 시간을 입력해 주세요.' : (savedLang === 'ja' ? '正しい時間を入力してください。' : (savedLang === 'zh' ? '请输入有效时间。' : 'Please enter a valid duration.')));
                 }
             });
         }
