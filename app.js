@@ -1830,6 +1830,7 @@ function changeCity(cityKey) {
         // Update lofi music for cartoon room
         updateCityLofiBGM(cityKey);
         updateWeather(cityKey);
+        updateNowPlayingVideo();
         return;
     }
 
