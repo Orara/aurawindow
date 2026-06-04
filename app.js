@@ -2208,6 +2208,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 confirmMsg = 'すべてのカスタム動画および応援設定を初期化しますか？';
             } else if (savedLang === 'en') {
                 confirmMsg = 'Are you sure you want to reset all custom video and support settings?';
+            } else if (savedLang === 'zh') {
+                confirmMsg = '您确定要重置所有自定义视频和赞助设置吗？';
             }
             
             if (confirm(confirmMsg)) {
@@ -2274,6 +2276,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert('설정에서 카카오페이 송금코드를 먼저 등록해 주세요.');
                     } else if (savedLang === 'ja') {
                         alert('設定でKakaoPay送金リンクを先に登録してください。');
+                    } else if (savedLang === 'zh') {
+                        alert('请先在设置中注册您的 KakaoPay 汇款链接。');
                     } else {
                         alert('Please register your KakaoPay link in settings first.');
                     }
