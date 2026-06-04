@@ -313,7 +313,13 @@ const translations = {
         footerStorageInfo: "개인정보 보관 정책: 100% 로컬 브라우저 저장",
         footerPrivacyBtn: "개인정보 처리방침",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 모든 설정과 커스텀 영상 정보는 개인 브라우저(localStorage)에만 안전하게 보관됩니다.",
-        privacyAlert: "🔒 개인정보 처리방침 및 안내:\n\n'AuraWindow'는 사용자가 커스텀 설정한 유튜브 동영상 ID, 배경 로파이 음악 링크, 카카오페이/페이팔 후원 계정 정보 등 어떠한 개인 데이터도 외부 서버로 전송하거나 수집하지 않습니다.\n\n모든 개인 설정은 오직 사용자의 웹 브라우저 로컬 저장소(localStorage)에만 프라이빗하게 보관되며, 브라우저의 인터넷 사용 기록(캐시)을 삭제하거나 설정창에서 '초기화' 버튼을 누르면 영구 삭제됩니다.\n\n안심하고 여러분만의 아늑한 창문을 즐겨보세요!"
+        privacyAlert: "🔒 개인정보 처리방침 및 안내:\n\n'AuraWindow'는 사용자가 커스텀 설정한 유튜브 동영상 ID, 배경 로파이 음악 링크, 카카오페이/페이팔 후원 계정 정보 등 어떠한 개인 데이터도 외부 서버로 전송하거나 수집하지 않습니다.\n\n모든 개인 설정은 오직 사용자의 웹 브라우저 로컬 저장소(localStorage)에만 프라이빗하게 보관되며, 브라우저의 인터넷 사용 기록(캐시)을 삭제하거나 설정창에서 '초기화' 버튼을 누르면 영구 삭제됩니다.\n\n안심하고 여러분만의 아늑한 창문을 즐겨보세요!",
+        adminVisitsLabel: "누적 방문자 수",
+        dynamicVisitorCount: "{count} 명",
+        dynamicVisitorFailed: "조회 실패",
+        adminPromptPassword: "관리자 비밀번호를 입력하세요:",
+        adminPasswordIncorrect: "비밀번호가 올바르지 않습니다.",
+        adblockWarning: '<i class="fa-solid fa-triangle-exclamation"></i> 유튜브 동영상이 차단되었습니다. 광고 차단기(AdBlock)를 끄거나 비활성화해 주세요.'
     },
     en: {
         brandTitle: "AuraWindow | Ambient Window to the World",
@@ -394,7 +400,13 @@ const translations = {
         footerStorageInfo: "Privacy: 100% Local Browser Storage",
         footerPrivacyBtn: "Privacy Policy",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. All visual settings and ambient options are stored safely inside your browser's localStorage.",
-        privacyAlert: "🔒 Privacy Policy & Info:\n\n'AuraWindow' does not collect or transmit any of your personal data, custom YouTube video IDs, background music links, or support information to external servers.\n\nAll configurations are saved strictly inside your local web browser storage (localStorage). Clearing your browser cookies/cache or clicking 'Reset Settings' will permanently delete all stored preference data.\n\nEnjoy your personal, cozy ambient window with complete peace of mind!"
+        privacyAlert: "🔒 Privacy Policy & Info:\n\n'AuraWindow' does not collect or transmit any of your personal data, custom YouTube video IDs, background music links, or support information to external servers.\n\nAll configurations are saved strictly inside your local web browser storage (localStorage). Clearing your browser cookies/cache or clicking 'Reset Settings' will permanently delete all stored preference data.\n\nEnjoy your personal, cozy ambient window with complete peace of mind!",
+        adminVisitsLabel: "Total Visitors",
+        dynamicVisitorCount: "{count} visitors",
+        dynamicVisitorFailed: "Load Failed",
+        adminPromptPassword: "Enter administrator password:",
+        adminPasswordIncorrect: "Incorrect password.",
+        adblockWarning: '<i class="fa-solid fa-triangle-exclamation"></i> YouTube video is blocked. Please disable or whitelist this site in your AdBlocker.'
     },
     ja: {
         brandTitle: "AuraWindow | 世界の窓",
@@ -475,7 +487,13 @@ const translations = {
         footerStorageInfo: "個人情報保護: 100%ローカルブラウザ保存",
         footerPrivacyBtn: "個人情報処理方針",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. すべての背景音楽URLおよび個人設定は、ブラウザのローカルストレージ（localStorage）にのみ安全に保管されます。",
-        privacyAlert: "🔒 個人情報処理方針とご案内:\n\n'AuraWindow'は、ユーザーがカスタム設定したYouTubeの動画ID、背景のLofi音楽リンク、送金コードなど、いかなる個人データも外部サーバーに送信または収集することはありません。\n\nすべての設定情報は、ユーザーのウェブブラウザのローカルストレージ（localStorage）にのみプライベートに保存され、ブラウザキャッシュを削除するか、設定画面で「初期化」ボタンを押すと完全に削除されます。\n\nどうぞ安心してお好みの世界の窓をお楽しみください！"
+        privacyAlert: "🔒 個人情報処理方針とご案内:\n\n'AuraWindow'は、ユーザーがカスタム設定したYouTubeの動画ID、背景のLofi BGMリンク、送金コードなど、いかなる個人データも外部サーバーに送信または収集することはありません。\n\nすべての設定情報は、ユーザーのウェブブラウザのローカルストレージ（localStorage）にのみプライベートに保存され、ブラウザキャッシュを削除するか、設定画面で「初期化」ボタンを押すと完全に削除されます。\n\nどうぞ安心してお好みの世界の窓をお楽しみください！",
+        adminVisitsLabel: "累計来訪者数",
+        dynamicVisitorCount: "{count} 人",
+        dynamicVisitorFailed: "照会失敗",
+        adminPromptPassword: "管理者パスワードを入力してください:",
+        adminPasswordIncorrect: "パスワードが正しくありません。",
+        adblockWarning: '<i class="fa-solid fa-triangle-exclamation"></i> YouTube動画がブロックされました。広告ブロック（AdBlock）を無効にするか、例外リストに登録してください。'
     },
     zh: {
         brandTitle: "AuraWindow | 环球窗景",
@@ -556,7 +574,13 @@ const translations = {
         footerStorageInfo: "数据隐私：100% 浏览器本地存储",
         footerPrivacyBtn: "隐私政策",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 所有的设置和自定义视频信息仅安全地保存在您个人浏览器的本地存储（localStorage）中。",
-        privacyAlert: "🔒 隐私政策与声明:\n\n'AuraWindow' 不会将您自定义设置的 YouTube 视频 ID、背景 Lofi 音乐链接、转账赞助账户等任何个人数据传输或上传到外部服务器。\n\n所有的个人配置信息均安全地存储在您的本地浏览器存储（localStorage）中。清除浏览器缓存或在设置中点击'重置设置'将会彻底清除该数据。\n\n请放心定制您专属的世界窗景！"
+        privacyAlert: "🔒 隐私政策与声明:\n\n'AuraWindow' 不会将您自定义设置的 YouTube 视频 ID、背景 Lofi 音乐链接、转账赞助账户等任何个人数据传输或上传到外部服务器。\n\n所有的个人配置信息均安全地存储在您的本地浏览器存储（localStorage）中。清除浏览器缓存或在设置中点击'重置设置'将会彻底清除该数据。\n\n请放心定制您专属的世界窗景！",
+        adminVisitsLabel: "累计访问量",
+        dynamicVisitorCount: "{count} 人次",
+        dynamicVisitorFailed: "加载失败",
+        adminPromptPassword: "请输入管理员密码:",
+        adminPasswordIncorrect: "密码错误。",
+        adblockWarning: '<i class="fa-solid fa-triangle-exclamation"></i> YouTube 视频加载被拦截。请关闭广告拦截插件（AdBlock）或将此网站设为白名单。'
     }
 };
 
@@ -1041,6 +1065,18 @@ function applyTranslations(lang) {
 
     const footerCopyrightDesc = document.getElementById('footer-copyright-desc');
     if (footerCopyrightDesc) footerCopyrightDesc.innerHTML = dict.footerCopyrightDesc;
+
+    // Admin visits label
+    const adminVisitsLabel = document.querySelector('#admin-visits-section .admin-visits-label');
+    if (adminVisitsLabel) {
+        adminVisitsLabel.innerHTML = `<i class="fa-solid fa-users"></i> ${dict.adminVisitsLabel}`;
+    }
+    
+    // Active adblock warning
+    const adblockWarningEl = document.getElementById('adblock-warning');
+    if (adblockWarningEl) {
+        adblockWarningEl.innerHTML = dict.adblockWarning;
+    }
 
     localStorage.setItem('aw-lang', lang);
     
@@ -1858,7 +1894,10 @@ function showAdblockWarning() {
         const div = document.createElement('div');
         div.id = 'adblock-warning';
         div.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(255, 64, 129, 0.95); color:#ffffff; padding:12px 24px; borderRadius:30px; fontSize:13px; fontWeight:700; zIndex:99999; boxShadow:0 4px 15px rgba(255, 64, 129, 0.4); backdropFilter:blur(10px); pointer-events:auto;';
-        div.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> 유튜브 동영상이 차단되었습니다. 광고 차단기(AdBlock)를 끄거나 비활성화해 주세요.';
+        
+        const lang = localStorage.getItem('aw-lang') || 'ko';
+        const dict = translations[lang] || translations.ko;
+        div.innerHTML = dict.adblockWarning;
         document.body.appendChild(div);
     }
 }
@@ -2134,7 +2173,9 @@ document.addEventListener('DOMContentLoaded', () => {
             settingsTitleClicks++;
             if (settingsTitleClicks >= 5) {
                 settingsTitleClicks = 0;
-                const passwordInput = prompt("관리자 비밀번호를 입력하세요:");
+                const currentLang = localStorage.getItem('aw-lang') || 'ko';
+                const dict = translations[currentLang] || translations.ko;
+                const passwordInput = prompt(dict.adminPromptPassword);
                 if (passwordInput === null) return;
                 
                 const hashedPassword = await sha256(passwordInput);
@@ -2143,7 +2184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (hashedPassword === targetHash) {
                     revealVisitorCount();
                 } else {
-                    alert("비밀번호가 올바르지 않습니다.");
+                    alert(dict.adminPasswordIncorrect);
                 }
             }
         });
@@ -2523,12 +2564,14 @@ function revealVisitorCount() {
     fetch('https://abacus.jasoncameron.dev/get/aurawindow-orara/visits?cb=' + Date.now())
         .then(res => res.json())
         .then(data => {
+            const currentLang = localStorage.getItem('aw-lang') || 'ko';
+            const dict = translations[currentLang] || translations.ko;
             if (data && data.value !== undefined) {
-                countEl.textContent = `${data.value.toLocaleString('ko-KR')} 명`;
+                countEl.textContent = dict.dynamicVisitorCount.replace('{count}', data.value.toLocaleString(currentLang));
             } else if (data && data.error === 'Key not found') {
-                countEl.textContent = "0 명";
+                countEl.textContent = dict.dynamicVisitorCount.replace('{count}', '0');
             } else {
-                countEl.textContent = "데이터 없음";
+                countEl.textContent = dict.dynamicVisitorFailed;
             }
         })
         .catch(err => {
