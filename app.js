@@ -2404,6 +2404,8 @@ function revealVisitorCount() {
         .then(data => {
             if (data && data.value !== undefined) {
                 countEl.textContent = `${data.value.toLocaleString('ko-KR')} 명`;
+            } else if (data && data.error === 'Key not found') {
+                countEl.textContent = "0 명";
             } else {
                 countEl.textContent = "데이터 없음";
             }
