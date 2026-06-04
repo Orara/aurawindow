@@ -732,6 +732,7 @@ function triggerSleep() {
 
     sleepTimerDuration = 0;
     updateTimerButtonUI();
+    updateNowPlayingMusic();
 }
 
 function wakeUp() {
@@ -785,6 +786,8 @@ function wakeUp() {
             safePlayerControl(mainPlayer, 'playVideo');
         }
     }
+    updateNowPlayingVideo();
+    updateNowPlayingMusic();
 }
 
 function updateTimerButtonUI() {
@@ -841,6 +844,7 @@ function updateCityLofiBGM(cityKey) {
             } else {
                 safePlayerControl(lofiPlayer, 'pauseVideo');
             }
+            updateNowPlayingMusic();
         } catch (e) { console.error('Error changing city lofi track:', e); }
     }
 }
@@ -1078,6 +1082,9 @@ function applyTranslations(lang) {
         adblockWarningEl.innerHTML = dict.adblockWarning;
     }
 
+    updateNowPlayingVideo();
+    updateNowPlayingMusic();
+
     localStorage.setItem('aw-lang', lang);
     
     // Re-run weather updates & clock updates to sync translations
@@ -1219,6 +1226,7 @@ function initMainPlayer() {
                     if (event.data === YT.PlayerState.PLAYING) {
                         // Video actually started - cancel watchdog
                         clearVideoWatchdog();
+                        updateNowPlayingVideo();
                     }
                     // YT.PlayerState.ENDED is 0
                     if (event.data === 0) {
@@ -1266,11 +1274,19 @@ function createHiddenPlayer(elementId, videoId) {
                     const key = elementId.split('-')[0];
                     event.target.setVolume(volumes[key] || 0);
                     // Do NOT play audio here. Audio should only play after the user clicks the "Enter" button (triggerUserGesture) to prevent premature autoplay.
+                    if (elementId === 'lofi-player') {
+                        updateNowPlayingMusic();
+                    }
                 },
                 onStateChange: (event) => {
-                    if (elementId === 'lofi-player' && event.data === 0) {
-                        console.log('Lofi music track ended. Playing next track...');
-                        handleLofiPlayerError();
+                    if (elementId === 'lofi-player') {
+                        if (event.data === YT.PlayerState.PLAYING) {
+                            updateNowPlayingMusic();
+                        }
+                        if (event.data === 0) {
+                            console.log('Lofi music track ended. Playing next track...');
+                            handleLofiPlayerError();
+                        }
                     }
                 },
                 onError: (event) => {
@@ -1772,6 +1788,9 @@ function handleVolumeChange(sliderId, volumeKey) {
                 safePlayerControl(player, 'pauseVideo');
             }
         }
+        if (volumeKey === 'lofi') {
+            updateNowPlayingMusic();
+        }
     });
 }
 
@@ -1856,6 +1875,7 @@ function changeCity(cityKey) {
 
     // Refine video with actual weather (guarded by city check in applyCityVideoByState)
     updateWeather(cityKey);
+    updateNowPlayingVideo();
 }
 
 // Trigger play on active audio sources on first user interaction (bypasses browser autoplay blocks)
@@ -2088,6 +2108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+        updateNowPlayingMusic();
     });
 
     // 8. Zen Mode Toggle Button
@@ -2531,6 +2552,66 @@ if (window.YT && window.YT.Player) {
 // ==========================================================================
 // Admin Visitor Counter Helpers
 // ==========================================================================
+function updateNowPlayingVideo() {
+    const videoEl = document.getElementById('now-playing-video');
+    if (!videoEl) return;
+    
+    if (cities[currentCity].useGhibliSlideshow) {
+        const lang = localStorage.getItem('aw-lang') || 'ko';
+        const dict = translations[lang] || translations.ko;
+        const cityName = dict.cities[currentCity]?.name || cities[currentCity].nameKr;
+        videoEl.textContent = `Video: ${cityName}`;
+        videoEl.title = cityName;
+        return;
+    }
+    
+    if (mainPlayer && typeof mainPlayer.getVideoData === 'function') {
+        try {
+            const videoData = mainPlayer.getVideoData();
+            if (videoData && videoData.title) {
+                videoEl.textContent = `Video: ${videoData.title}`;
+                videoEl.title = videoData.title;
+                return;
+            }
+        } catch (e) {
+            console.error('Error getting video data:', e);
+        }
+    }
+    videoEl.textContent = `Video: Loading...`;
+    videoEl.title = '';
+}
+
+function updateNowPlayingMusic() {
+    const musicEl = document.getElementById('now-playing-music');
+    if (!musicEl) return;
+    
+    if (isMuted || volumes.lofi === 0) {
+        const lang = localStorage.getItem('aw-lang') || 'ko';
+        const isEn = lang === 'en';
+        const isJa = lang === 'ja';
+        const isZh = lang === 'zh';
+        const muteText = isEn ? 'Muted' : (isJa ? '消音中' : (isZh ? '静音' : '음소거됨'));
+        musicEl.textContent = `Music: ${muteText}`;
+        musicEl.title = '';
+        return;
+    }
+    
+    if (lofiPlayer && typeof lofiPlayer.getVideoData === 'function') {
+        try {
+            const videoData = lofiPlayer.getVideoData();
+            if (videoData && videoData.title) {
+                musicEl.textContent = `Music: ${videoData.title}`;
+                musicEl.title = videoData.title;
+                return;
+            }
+        } catch (e) {
+            console.error('Error getting lofi data:', e);
+        }
+    }
+    musicEl.textContent = `Music: Loading...`;
+    musicEl.title = '';
+}
+
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);

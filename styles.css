@@ -1455,3 +1455,62 @@ input[type="range"]::-webkit-slider-thumb:hover {
     border-color: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }
+
+/* Now Playing Widget */
+.now-playing-widget {
+    position: absolute;
+    top: 124px;
+    left: 24px;
+    padding: 12px 16px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 50;
+    pointer-events: auto;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.now-playing-widget.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+/* Zen mode hides now-playing-widget */
+.app-ui.zen-mode .now-playing-widget {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+.media-info-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+.media-icon {
+    font-size: 14px;
+    color: var(--accent-color);
+    width: 16px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.media-title {
+    font-family: var(--font-main);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+    .now-playing-widget {
+        display: none !important;
+    }
+}
