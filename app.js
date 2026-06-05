@@ -2534,6 +2534,44 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTranslations(initialLang);
 });
 
+// Firebase Presence Setup
+const firebaseConfig = {
+    projectId: "chromaglow-app-2026",
+    appId: "1:756931852879:web:6065bd640b06798efac83a",
+    apiKey: "AIzaSyDPDfgcTxO0DKduc5UCvaaeFnBXB75TsS0",
+    authDomain: "chromaglow-app-2026.firebaseapp.com"
+};
+
+let db;
+try {
+    if (typeof firebase !== 'undefined') {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+    }
+} catch (e) {
+    console.error("Firebase init error:", e);
+}
+
+const sessionId = 'session_' + Math.random().toString(36).substring(2, 11);
+
+function startPresenceHeartbeat(appName) {
+    const sessionRef = db.collection('presence').doc(appName + '_' + sessionId);
+    const sendHeartbeat = () => {
+        sessionRef.set({
+            appName: appName,
+            lastActive: firebase.firestore.FieldValue.serverTimestamp()
+        }).catch(err => console.error("Presence heartbeat write error:", err));
+    };
+
+    sendHeartbeat();
+    const heartbeatInterval = setInterval(sendHeartbeat, 15000);
+
+    window.addEventListener('beforeunload', () => {
+        clearInterval(heartbeatInterval);
+        sessionRef.delete().catch(err => console.error("Presence exit delete error:", err));
+    });
+}
+
 // Load the YouTube API script asynchronously *after* declaring our callbacks to prevent race conditions
 if (window.YT && window.YT.Player) {
     console.log('YouTube API was already loaded. Initializing immediately.');
@@ -2622,14 +2660,17 @@ async function sha256(message) {
 }
 
 function initVisitorCounter() {
-    if (!sessionStorage.getItem('aurawindow-visited')) {
+    if (!localStorage.getItem('aurawindow-visited')) {
         fetch('https://abacus.jasoncameron.dev/hit/aurawindow-orara/visits?cb=' + Date.now())
             .then(res => res.json())
             .then(data => {
-                sessionStorage.setItem('aurawindow-visited', 'true');
+                localStorage.setItem('aurawindow-visited', 'true');
                 console.log("Visitor count session initialized");
             })
             .catch(err => console.error("Visitor Counter Up error:", err));
+    }
+    if (db) {
+        startPresenceHeartbeat('aurawindow');
     }
 }
 
@@ -2648,17 +2689,48 @@ function revealVisitorCount() {
         .then(data => {
             const currentLang = localStorage.getItem('aw-lang') || 'ko';
             const dict = translations[currentLang] || translations.ko;
+            let totalCountText = '0';
+            
             if (data && data.value !== undefined) {
-                countEl.textContent = dict.dynamicVisitorCount.replace('{count}', data.value.toLocaleString(currentLang));
-            } else if (data && data.error === 'Key not found') {
-                countEl.textContent = dict.dynamicVisitorCount.replace('{count}', '0');
+                totalCountText = data.value.toLocaleString(currentLang);
+            }
+            
+            if (db) {
+                db.collection('presence')
+                    .where('appName', '==', 'aurawindow')
+                    .onSnapshot(snapshot => {
+                        const now = Date.now();
+                        let activeCount = 0;
+                        
+                        snapshot.forEach(doc => {
+                            const docData = doc.data();
+                            if (docData.lastActive) {
+                                const lastActiveMs = docData.lastActive.toDate().getTime();
+                                if (now - lastActiveMs < 40000) {
+                                    activeCount++;
+                                }
+                            } else {
+                                activeCount++;
+                            }
+                        });
+                        
+                        if (activeCount < 1) activeCount = 1;
+                        
+                        const liveText = currentLang === 'ko' ? ` (실시간 ${activeCount}명)` : ` (live: ${activeCount})`;
+                        countEl.textContent = dict.dynamicVisitorCount.replace('{count}', totalCountText) + liveText;
+                    }, err => {
+                        console.error("Presence listener error:", err);
+                        countEl.textContent = dict.dynamicVisitorCount.replace('{count}', totalCountText);
+                    });
             } else {
-                countEl.textContent = dict.dynamicVisitorFailed;
+                countEl.textContent = dict.dynamicVisitorCount.replace('{count}', totalCountText);
             }
         })
         .catch(err => {
             console.error("Fetch counter error:", err);
-            countEl.textContent = "조회 실패";
+            const currentLang = localStorage.getItem('aw-lang') || 'ko';
+            const dict = translations[currentLang] || translations.ko;
+            countEl.textContent = dict.dynamicVisitorFailed;
         });
 }
 
