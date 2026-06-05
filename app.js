@@ -314,7 +314,7 @@ const translations = {
         footerPrivacyBtn: "개인정보 처리방침",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 모든 설정과 커스텀 영상 정보는 개인 브라우저(localStorage)에만 안전하게 보관됩니다.",
         privacyAlert: "🔒 개인정보 처리방침 및 안내:\n\n'AuraWindow'는 사용자가 커스텀 설정한 유튜브 동영상 ID, 배경 로파이 음악 링크, 카카오페이/페이팔 후원 계정 정보 등 어떠한 개인 데이터도 외부 서버로 전송하거나 수집하지 않습니다.\n\n모든 개인 설정은 오직 사용자의 웹 브라우저 로컬 저장소(localStorage)에만 프라이빗하게 보관되며, 브라우저의 인터넷 사용 기록(캐시)을 삭제하거나 설정창에서 '초기화' 버튼을 누르면 영구 삭제됩니다.\n\n안심하고 여러분만의 아늑한 창문을 즐겨보세요!",
-        adminVisitsLabel: "누적 방문자 수",
+        adminVisitsLabel: "방문자 통계",
         dynamicVisitorCount: "{count} 명",
         dynamicVisitorFailed: "조회 실패",
         adminPromptPassword: "관리자 비밀번호를 입력하세요:",
@@ -401,7 +401,7 @@ const translations = {
         footerPrivacyBtn: "Privacy Policy",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. All visual settings and ambient options are stored safely inside your browser's localStorage.",
         privacyAlert: "🔒 Privacy Policy & Info:\n\n'AuraWindow' does not collect or transmit any of your personal data, custom YouTube video IDs, background music links, or support information to external servers.\n\nAll configurations are saved strictly inside your local web browser storage (localStorage). Clearing your browser cookies/cache or clicking 'Reset Settings' will permanently delete all stored preference data.\n\nEnjoy your personal, cozy ambient window with complete peace of mind!",
-        adminVisitsLabel: "Total Visitors",
+        adminVisitsLabel: "Visitor Stats",
         dynamicVisitorCount: "{count} visitors",
         dynamicVisitorFailed: "Load Failed",
         adminPromptPassword: "Enter administrator password:",
@@ -488,7 +488,7 @@ const translations = {
         footerPrivacyBtn: "個人情報処理方針",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. すべての背景音楽URLおよび個人設定は、ブラウザのローカルストレージ（localStorage）にのみ安全に保管されます。",
         privacyAlert: "🔒 個人情報処理方針とご案内:\n\n'AuraWindow'は、ユーザーがカスタム設定したYouTubeの動画ID、背景のLofi BGMリンク、送金コードなど、いかなる個人データも外部サーバーに送信または収集することはありません。\n\nすべての設定情報は、ユーザーのウェブブラウザのローカルストレージ（localStorage）にのみプライベートに保存され、ブラウザキャッシュを削除するか、設定画面で「初期化」ボタンを押すと完全に削除されます。\n\nどうぞ安心してお好みの世界の窓をお楽しみください！",
-        adminVisitsLabel: "累計来訪者数",
+        adminVisitsLabel: "訪問者統計",
         dynamicVisitorCount: "{count} 人",
         dynamicVisitorFailed: "照会失敗",
         adminPromptPassword: "管理者パスワードを入力してください:",
@@ -575,7 +575,7 @@ const translations = {
         footerPrivacyBtn: "隐私政策",
         footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 所有的设置和自定义视频信息仅安全地保存在您个人浏览器的本地存储（localStorage）中。",
         privacyAlert: "🔒 隐私政策与声明:\n\n'AuraWindow' 不会将您自定义设置的 YouTube 视频 ID、背景 Lofi 音乐链接、转账赞助账户等任何个人数据传输或上传到外部服务器。\n\n所有的个人配置信息均安全地存储在您的本地浏览器存储（localStorage）中。清除浏览器缓存或在设置中点击'重置设置'将会彻底清除该数据。\n\n请放心定制您专属的世界窗景！",
-        adminVisitsLabel: "累计访问量",
+        adminVisitsLabel: "访问者统计",
         dynamicVisitorCount: "{count} 人次",
         dynamicVisitorFailed: "加载失败",
         adminPromptPassword: "请输入管理员密码:",
@@ -2659,16 +2659,39 @@ async function sha256(message) {
     return hashHex;
 }
 
+function getTodayDateString() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function initVisitorCounter() {
+    const todayStr = getTodayDateString();
+    
+    // 1. Total (Cumulative) Visitor Count (Once ever per device/browser)
     if (!localStorage.getItem('aurawindow-visited')) {
         fetch('https://abacus.jasoncameron.dev/hit/aurawindow-orara/visits?cb=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 localStorage.setItem('aurawindow-visited', 'true');
-                console.log("Visitor count session initialized");
+                console.log("Total visitor count initialized");
             })
-            .catch(err => console.error("Visitor Counter Up error:", err));
+            .catch(err => console.error("Total Visitor Counter hit error:", err));
     }
+    
+    // 2. Today's Visitor Count (Once per day per device/browser)
+    if (!localStorage.getItem('aurawindow-visited-' + todayStr)) {
+        fetch(`https://abacus.jasoncameron.dev/hit/aurawindow-orara-visits-${todayStr}/visits?cb=` + Date.now())
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem('aurawindow-visited-' + todayStr, 'true');
+                console.log("Today visitor count initialized for " + todayStr);
+            })
+            .catch(err => console.error("Today Visitor Counter hit error:", err));
+    }
+    
     if (db) {
         startPresenceHeartbeat('aurawindow');
     }
@@ -2684,54 +2707,87 @@ function revealVisitorCount() {
     adminSection.style.display = 'flex';
     localStorage.setItem('aurawindow-admin-unlocked', 'true');
     
-    fetch('https://abacus.jasoncameron.dev/get/aurawindow-orara/visits?cb=' + Date.now())
-        .then(res => res.json())
-        .then(data => {
-            const currentLang = localStorage.getItem('aw-lang') || 'ko';
-            const dict = translations[currentLang] || translations.ko;
-            let totalCountText = '0';
+    const todayStr = getTodayDateString();
+    
+    Promise.all([
+        fetch('https://abacus.jasoncameron.dev/get/aurawindow-orara/visits?cb=' + Date.now()).then(res => res.json()),
+        fetch(`https://abacus.jasoncameron.dev/get/aurawindow-orara-visits-${todayStr}/visits?cb=` + Date.now()).then(res => res.json())
+    ])
+    .then(([totalData, todayData]) => {
+        const currentLang = localStorage.getItem('aw-lang') || 'ko';
+        let totalCount = 0;
+        let todayCount = 0;
+        
+        if (totalData && totalData.value !== undefined) {
+            totalCount = totalData.value;
+        }
+        if (todayData && todayData.value !== undefined) {
+            todayCount = todayData.value;
+        }
+        
+        if (todayCount < 1) todayCount = 1;
+        if (totalCount < todayCount) totalCount = todayCount;
+        
+        const formatCountText = (liveCountVal) => {
+            const formattedTotal = totalCount.toLocaleString(currentLang);
+            const formattedToday = todayCount.toLocaleString(currentLang);
             
-            if (data && data.value !== undefined) {
-                totalCountText = data.value.toLocaleString(currentLang);
+            if (currentLang === 'ko') {
+                return `누적 ${formattedTotal}명 / 오늘 ${formattedToday}명 (실시간 ${liveCountVal}명)`;
+            } else if (currentLang === 'ja') {
+                return `累計 ${formattedTotal}人 / 本日 ${formattedToday}人 (リアルタイム ${liveCountVal}人)`;
+            } else if (currentLang === 'zh') {
+                return `累计 ${formattedTotal} 人次 / 今日 ${formattedToday} 人次 (实时 ${liveCountVal} 人)`;
+            } else {
+                return `Total: ${formattedTotal} / Today: ${formattedToday} (live: ${liveCountVal})`;
             }
-            
-            if (db) {
-                db.collection('presence')
-                    .where('appName', '==', 'aurawindow')
-                    .onSnapshot(snapshot => {
-                        const now = Date.now();
-                        let activeCount = 0;
-                        
-                        snapshot.forEach(doc => {
-                            const docData = doc.data();
-                            if (docData.lastActive) {
-                                const lastActiveMs = docData.lastActive.toDate().getTime();
-                                if (now - lastActiveMs < 40000) {
-                                    activeCount++;
-                                }
-                            } else {
+        };
+        
+        if (db) {
+            if (window.presenceUnsubscribe) {
+                window.presenceUnsubscribe();
+            }
+            window.presenceUnsubscribe = db.collection('presence')
+                .where('appName', '==', 'aurawindow')
+                .onSnapshot(snapshot => {
+                    const now = Date.now();
+                    let activeCount = 0;
+                    
+                    snapshot.forEach(doc => {
+                        const docData = doc.data();
+                        if (docData.lastActive) {
+                            const lastActiveMs = docData.lastActive.toDate().getTime();
+                            if (now - lastActiveMs < 40000) {
                                 activeCount++;
                             }
-                        });
-                        
-                        if (activeCount < 1) activeCount = 1;
-                        
-                        const liveText = currentLang === 'ko' ? ` (실시간 ${activeCount}명)` : ` (live: ${activeCount})`;
-                        countEl.textContent = dict.dynamicVisitorCount.replace('{count}', totalCountText) + liveText;
-                    }, err => {
-                        console.error("Presence listener error:", err);
-                        countEl.textContent = dict.dynamicVisitorCount.replace('{count}', totalCountText);
+                        } else {
+                            activeCount++;
+                        }
                     });
-            } else {
-                countEl.textContent = dict.dynamicVisitorCount.replace('{count}', totalCountText);
-            }
-        })
-        .catch(err => {
-            console.error("Fetch counter error:", err);
-            const currentLang = localStorage.getItem('aw-lang') || 'ko';
-            const dict = translations[currentLang] || translations.ko;
-            countEl.textContent = dict.dynamicVisitorFailed;
-        });
+                    
+                    if (activeCount < 1) activeCount = 1;
+                    countEl.textContent = formatCountText(activeCount);
+                }, err => {
+                    console.error("Presence listener error:", err);
+                    countEl.textContent = formatCountText(1);
+                });
+        } else {
+            countEl.textContent = formatCountText(1);
+        }
+    })
+    .catch(err => {
+        console.error("Fetch counter error:", err);
+        const currentLang = localStorage.getItem('aw-lang') || 'ko';
+        if (currentLang === 'ko') {
+            countEl.textContent = "조회 실패";
+        } else if (currentLang === 'ja') {
+            countEl.textContent = "読み込み失敗";
+        } else if (currentLang === 'zh') {
+            countEl.textContent = "加载失败";
+        } else {
+            countEl.textContent = "Load Failed";
+        }
+    });
 }
 
 function checkAdminState() {
