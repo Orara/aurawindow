@@ -1042,7 +1042,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* =============================
-   AI Ghibli Slideshow Styles
+   Anime Study Room Slideshow Styles
    ============================= */
 .ghibli-slideshow {
     position: fixed;
@@ -1105,7 +1105,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     100% { transform: scale(1.1) translate(1.5%, -0.5%); }
 }
 
-/* Ghibli badge */
+/* Anime room badge */
 .ghibli-badge {
     display: inline-flex;
     align-items: center;

@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="oWJLOaDCkQfyjvWTmQ5CS6z2RH9stH4Pp_yqTXxXnpA" />
     <meta name="naver-site-verification" content="4931ad75452c7da08f6eb995393c70157c1d11f0" />
+    <meta name="description" content="AuraWindow는 전 세계 도시 영상과 로파이, 빗소리, 카페 소음, 모닥불을 섞어 나만의 집중 창문을 여는 감성 웹앱입니다.">
+    <meta name="theme-color" content="#0d0d1a">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AuraWindow">
+    <meta property="og:title" content="AuraWindow | 방구석 세계 창문">
+    <meta property="og:description" content="도시 영상과 백색소음을 섞어 나만의 집중 창문을 여는 감성 웹앱.">
+    <meta property="og:url" content="https://orara.github.io/aurawindow/">
+    <meta property="og:image" content="https://orara.github.io/aurawindow/ghibli/library.png">
+    <meta property="og:image:alt" content="AuraWindow ambient study room preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AuraWindow | 방구석 세계 창문">
+    <meta name="twitter:description" content="도시 영상과 백색소음을 섞어 나만의 집중 창문을 여는 감성 웹앱.">
+    <meta name="twitter:image" content="https://orara.github.io/aurawindow/ghibli/library.png">
     <title>AuraWindow | 방구석 세계 창문</title>
     <!-- Google Fonts for premium typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +38,7 @@
             <p class="intro-subtitle">방구석 세계 창문</p>
             <button id="intro-enter-btn">
                 <i class="fa-solid fa-play"></i>
-                <span>Enter</span>
+                <span>세계 창문 열기</span>
             </button>
             <p class="intro-hint">클릭하면 배경음악과 함께 시작됩니다</p>
         </div>
@@ -46,19 +59,19 @@
         <div class="video-overlay"></div>
     </div>
 
-    <!-- AI Ghibli Slideshow (shown when Cartoon Room is selected) -->
+    <!-- Anime Study Room Slideshow (shown when Cartoon Room is selected) -->
     <div id="ghibli-slideshow" class="ghibli-slideshow hidden">
-        <div class="ghibli-slide active" data-scene="morning"><img src="ghibli/morning.png" alt="Ghibli Morning"></div>
-        <div class="ghibli-slide" data-scene="library"><img src="ghibli/library.png" alt="Ghibli Library"></div>
-        <div class="ghibli-slide" data-scene="sunset"><img src="ghibli/sunset.png" alt="Ghibli Sunset"></div>
-        <div class="ghibli-slide" data-scene="night"><img src="ghibli/night.png" alt="Ghibli Night"></div>
-        <div class="ghibli-slide" data-scene="rain"><img src="ghibli/rain.png" alt="Ghibli Rain"></div>
-        <div class="ghibli-slide" data-scene="snow"><img src="ghibli/snow.png" alt="Ghibli Snow"></div>
-        <div class="ghibli-slide" data-scene="sunny_study"><img src="ghibli/sunny_study.png" alt="Ghibli Sunny Study"></div>
-        <div class="ghibli-slide" data-scene="rainy_study"><img src="ghibli/rainy_study.png" alt="Ghibli Rainy Study"></div>
-        <div class="ghibli-slide" data-scene="autumn_study"><img src="ghibli/autumn_study.png" alt="Ghibli Autumn Study"></div>
-        <div class="ghibli-slide" data-scene="snowy_study"><img src="ghibli/snowy_study.png" alt="Ghibli Snowy Study"></div>
-        <div class="ghibli-slide" data-scene="sunset_study"><img src="ghibli/sunset_study.png" alt="Ghibli Sunset Study"></div>
+        <div class="ghibli-slide active" data-scene="morning"><img src="ghibli/morning.png" alt="Anime study room morning"></div>
+        <div class="ghibli-slide" data-scene="library"><img src="ghibli/library.png" alt="Cozy anime library study room"></div>
+        <div class="ghibli-slide" data-scene="sunset"><img src="ghibli/sunset.png" alt="Anime study room sunset"></div>
+        <div class="ghibli-slide" data-scene="night"><img src="ghibli/night.png" alt="Anime study room night"></div>
+        <div class="ghibli-slide" data-scene="rain"><img src="ghibli/rain.png" alt="Anime study room rain"></div>
+        <div class="ghibli-slide" data-scene="snow"><img src="ghibli/snow.png" alt="Anime study room snow"></div>
+        <div class="ghibli-slide" data-scene="sunny_study"><img src="ghibli/sunny_study.png" alt="Sunny anime study room"></div>
+        <div class="ghibli-slide" data-scene="rainy_study"><img src="ghibli/rainy_study.png" alt="Rainy anime study room"></div>
+        <div class="ghibli-slide" data-scene="autumn_study"><img src="ghibli/autumn_study.png" alt="Autumn anime study room"></div>
+        <div class="ghibli-slide" data-scene="snowy_study"><img src="ghibli/snowy_study.png" alt="Snowy anime study room"></div>
+        <div class="ghibli-slide" data-scene="sunset_study"><img src="ghibli/sunset_study.png" alt="Sunset anime study room"></div>
         <div class="video-overlay"></div>
     </div>
 
@@ -399,6 +412,6 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="app.js?v=107"></script>
+    <script src="app.js?v=108"></script>
 </body>
 </html>

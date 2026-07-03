@@ -189,7 +189,7 @@ const cities = {
         music: ['aAvMDmN1t5A', '7NOSDKb0HlU', 'YQs7IVvvVYw']
     },
     cartoon: {
-        videos: [], // Cartoon room uses Ghibli AI image slideshow instead of YouTube
+        videos: [], // Cartoon room uses an anime study room slideshow instead of YouTube
         currentVideoIndex: 0,
         nameKr: '만화 속 공부방',
         nameEn: 'Cozy Cartoon Room',
@@ -209,7 +209,7 @@ const cities = {
             'oQUA3tQS0To',
             'zcaskjhhXWQ'
         ],
-        useGhibliSlideshow: true  // special flag: show AI image slideshow
+        useGhibliSlideshow: true  // special flag: show local image slideshow
     }
 };
 
@@ -310,10 +310,10 @@ const translations = {
         sleepGoodNight: "안녕히 주무세요",
         sleepWakeUp: "화면 깨우기",
         skipBtnTitle: "다음 영상으로 넘기기",
-        footerStorageInfo: "개인정보 보관 정책: 100% 로컬 브라우저 저장",
+        footerStorageInfo: "개인 설정 저장: 100% 로컬 브라우저 저장",
         footerPrivacyBtn: "개인정보 처리방침",
-        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 모든 설정과 커스텀 영상 정보는 개인 브라우저(localStorage)에만 안전하게 보관됩니다.",
-        privacyAlert: "🔒 개인정보 처리방침 및 안내:\n\n'AuraWindow'는 사용자가 커스텀 설정한 유튜브 동영상 ID, 배경 로파이 음악 링크, 카카오페이/페이팔 후원 계정 정보 등 어떠한 개인 데이터도 외부 서버로 전송하거나 수집하지 않습니다.\n\n모든 개인 설정은 오직 사용자의 웹 브라우저 로컬 저장소(localStorage)에만 프라이빗하게 보관되며, 브라우저의 인터넷 사용 기록(캐시)을 삭제하거나 설정창에서 '초기화' 버튼을 누르면 영구 삭제됩니다.\n\n안심하고 여러분만의 아늑한 창문을 즐겨보세요!",
+        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 커스텀 영상, 음악, 후원 링크 등 개인 설정은 이 브라우저의 localStorage에만 저장됩니다.",
+        privacyAlert: "🔒 개인정보 처리방침 및 안내:\n\nAuraWindow의 커스텀 영상 ID, 배경 로파이 음악 링크, 카카오페이/페이팔 후원 계정 정보 등 개인 설정은 외부 서버로 업로드하지 않고 사용자의 브라우저 localStorage에만 저장됩니다.\n\n서비스 제공을 위해 YouTube 영상, Open-Meteo 날씨, 방문자 통계, 실시간 접속 상태, QR 코드 생성 등 일부 외부 서비스 요청이 발생할 수 있습니다. 이 요청에는 각 서비스의 기본 접속 정보가 포함될 수 있습니다.\n\n브라우저의 인터넷 사용 기록(캐시)을 삭제하거나 설정창에서 '초기화' 버튼을 누르면 저장된 개인 설정이 삭제됩니다.",
         adminVisitsLabel: "방문자 통계",
         dynamicVisitorCount: "{count} 명",
         dynamicVisitorFailed: "조회 실패",
@@ -399,8 +399,8 @@ const translations = {
         skipBtnTitle: "Skip to next video",
         footerStorageInfo: "Privacy: 100% Local Browser Storage",
         footerPrivacyBtn: "Privacy Policy",
-        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. All visual settings and ambient options are stored safely inside your browser's localStorage.",
-        privacyAlert: "🔒 Privacy Policy & Info:\n\n'AuraWindow' does not collect or transmit any of your personal data, custom YouTube video IDs, background music links, or support information to external servers.\n\nAll configurations are saved strictly inside your local web browser storage (localStorage). Clearing your browser cookies/cache or clicking 'Reset Settings' will permanently delete all stored preference data.\n\nEnjoy your personal, cozy ambient window with complete peace of mind!",
+        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. Custom videos, music, and support links are stored only in this browser's localStorage.",
+        privacyAlert: "🔒 Privacy Policy & Info:\n\nAuraWindow stores custom video IDs, lofi music links, KakaoPay/PayPal support details, and other personal settings only in your browser's localStorage. These settings are not uploaded to an AuraWindow server.\n\nTo provide the service, AuraWindow may request external services such as YouTube videos, Open-Meteo weather, visitor counters, live presence, and QR code generation. Those requests may include basic connection information handled by each provider.\n\nClearing browser data or clicking 'Reset Settings' will remove locally stored preferences.",
         adminVisitsLabel: "Visitor Stats",
         dynamicVisitorCount: "{count} visitors",
         dynamicVisitorFailed: "Load Failed",
@@ -486,8 +486,8 @@ const translations = {
         skipBtnTitle: "次の動画へスキップ",
         footerStorageInfo: "個人情報保護: 100%ローカルブラウザ保存",
         footerPrivacyBtn: "個人情報処理方針",
-        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. すべての背景音楽URLおよび個人設定は、ブラウザのローカルストレージ（localStorage）にのみ安全に保管されます。",
-        privacyAlert: "🔒 個人情報処理方針とご案内:\n\n'AuraWindow'は、ユーザーがカスタム設定したYouTubeの動画ID、背景のLofi BGMリンク、送金コードなど、いかなる個人データも外部サーバーに送信または収集することはありません。\n\nすべての設定情報は、ユーザーのウェブブラウザのローカルストレージ（localStorage）にのみプライベートに保存され、ブラウザキャッシュを削除するか、設定画面で「初期化」ボタンを押すと完全に削除されます。\n\nどうぞ安心してお好みの世界の窓をお楽しみください！",
+        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. カスタム動画、音楽、応援リンクなどの個人設定は、このブラウザのlocalStorageにのみ保存されます。",
+        privacyAlert: "🔒 個人情報処理方針とご案内:\n\nAuraWindowのカスタム動画ID、Lofi BGMリンク、KakaoPay/PayPalの応援情報などの個人設定は、外部サーバーへアップロードされず、ユーザーのブラウザlocalStorageにのみ保存されます。\n\nサービス提供のため、YouTube動画、Open-Meteo天気、訪問者カウンター、リアルタイム接続状態、QRコード生成など一部外部サービスへのリクエストが発生する場合があります。これらのリクエストには各サービスが扱う基本的な接続情報が含まれることがあります。\n\nブラウザデータを削除するか、設定画面で「初期化」を押すと、保存された個人設定は削除されます。",
         adminVisitsLabel: "訪問者統計",
         dynamicVisitorCount: "{count} 人",
         dynamicVisitorFailed: "照会失敗",
@@ -573,8 +573,8 @@ const translations = {
         skipBtnTitle: "切换到下一个视频",
         footerStorageInfo: "数据隐私：100% 浏览器本地存储",
         footerPrivacyBtn: "隐私政策",
-        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 所有的设置和自定义视频信息仅安全地保存在您个人浏览器的本地存储（localStorage）中。",
-        privacyAlert: "🔒 隐私政策与声明:\n\n'AuraWindow' 不会将您自定义设置的 YouTube 视频 ID、背景 Lofi 音乐链接、转账赞助账户等任何个人数据传输或上传到外部服务器。\n\n所有的个人配置信息均安全地存储在您的本地浏览器存储（localStorage）中。清除浏览器缓存或在设置中点击'重置设置'将会彻底清除该数据。\n\n请放心定制您专属的世界窗景！",
+        footerCopyrightDesc: "&copy; 2026 AuraWindow. All rights reserved. 自定义视频、音乐和赞助链接等个人设置仅保存在此浏览器的 localStorage 中。",
+        privacyAlert: "🔒 隐私政策与声明:\n\nAuraWindow 的自定义视频 ID、Lofi 音乐链接、KakaoPay/PayPal 赞助信息等个人设置不会上传到外部服务器，只会保存在用户浏览器的 localStorage 中。\n\n为了提供服务，AuraWindow 可能会请求 YouTube 视频、Open-Meteo 天气、访问统计、实时在线状态、二维码生成等外部服务。这些请求可能包含由各服务处理的基础连接信息。\n\n清除浏览器数据或在设置中点击“重置设置”会删除本地保存的个人设置。",
         adminVisitsLabel: "访问者统计",
         dynamicVisitorCount: "{count} 人次",
         dynamicVisitorFailed: "加载失败",
@@ -608,12 +608,12 @@ let loadedCityKey = 'tokyo';
 let videoLoadWatchdog = null;
 const VIDEO_LOAD_TIMEOUT_MS = 12000;
 
-// Ghibli slideshow state
+// Anime study room slideshow state
 let ghibliSlideIndex = 0;
 let ghibliSlideshowTimer = null;
 const GHIBLI_SLIDE_INTERVAL = 10000; // 10 seconds per slide
 
-// Map weather states to preferred Ghibli slide scenes
+// Map weather states to preferred anime study room slide scenes
 const GHIBLI_STATE_SLIDE = {
     rain: 'rainy_study',
     snow: 'snowy_study',
@@ -628,7 +628,7 @@ let sleepTimerId = null;
 let sleepTimerDuration = 0;
 let savedVolumesBeforeSleep = {};
 
-// Ghibli Slideshow manually skip slide
+// Anime study room slideshow manually skip slide
 function skipGhibliSlide() {
     const slideshow = document.getElementById('ghibli-slideshow');
     if (!slideshow || slideshow.classList.contains('hidden')) return;
@@ -824,7 +824,7 @@ function updateLofiPlaylistForCity(cityKey) {
     }
     
     // Shuffle the list to keep it fun and random for all cities!
-    // Since all tracks in the Cartoon Room are 100% Ghibli, shuffling keeps it fresh while staying Ghibli-themed.
+    // Cartoon Room tracks are shuffled to keep the study-room mood fresh.
     let listToShuffle = customExists ? list.slice(1) : list;
     shuffleArray(listToShuffle);
     activeLofiPlaylist = customExists ? [storedLofi, ...listToShuffle] : listToShuffle;
@@ -1127,7 +1127,7 @@ function clearVideoWatchdog() {
 }
 
 // ========================
-// Ghibli Slideshow Control
+// Anime Study Room Slideshow Control
 // ========================
 function startGhibliSlideshow(state) {
     const slideshow = document.getElementById('ghibli-slideshow');
@@ -1139,7 +1139,7 @@ function startGhibliSlideshow(state) {
         try { mainPlayer.pauseVideo(); } catch(e) {}
     }
 
-    // Hide YouTube background, show Ghibli
+    // Hide YouTube background, show local image slideshow
     if (videoBg) videoBg.style.opacity = '0';
     slideshow.classList.remove('hidden');
 
@@ -1273,7 +1273,7 @@ function createHiddenPlayer(elementId, videoId) {
                     console.log(`${elementId} is ready.`);
                     const key = elementId.split('-')[0];
                     event.target.setVolume(volumes[key] || 0);
-                    // Do NOT play audio here. Audio should only play after the user clicks the "Enter" button (triggerUserGesture) to prevent premature autoplay.
+                    // Do NOT play audio here. Audio should only play after the user clicks the intro button (triggerUserGesture) to prevent premature autoplay.
                     if (elementId === 'lofi-player') {
                         updateNowPlayingMusic();
                     }
@@ -1456,7 +1456,7 @@ function applyCityVideoByState(cityKey, state, isDay) {
 
     const city = cities[cityKey];
 
-    // Special case: cartoon room uses Ghibli slideshow, not YouTube
+    // Special case: cartoon room uses a local image slideshow, not YouTube
     if (city.useGhibliSlideshow) {
         startGhibliSlideshow(state);
         return;
@@ -1809,7 +1809,7 @@ function changeCity(cityKey) {
 
     const city = cities[cityKey];
 
-    // ── Cartoon room: switch to Ghibli slideshow ──
+    // ── Cartoon room: switch to local image slideshow ──
     if (city.useGhibliSlideshow) {
         stopGhibliSlideshow(); // ensure clean state first
         // determine current state for slide scene selection
@@ -1834,7 +1834,7 @@ function changeCity(cityKey) {
         return;
     }
 
-    // ── Other cities: stop Ghibli slideshow if it was running ──
+    // ── Other cities: stop local image slideshow if it was running ──
     if (cities[prevCity]?.useGhibliSlideshow) {
         stopGhibliSlideshow();
     }
@@ -2054,8 +2054,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 6. Intro Overlay: click Enter to dismiss and start audio
-    //    Browser autoplay policy requires a user gesture — the Enter button IS that gesture.
+    // 6. Intro Overlay: click the start button to dismiss and start audio
+    //    Browser autoplay policy requires a user gesture.
     const introOverlay = document.getElementById('intro-overlay');
     const introBtn = document.getElementById('intro-enter-btn');
     function dismissIntro() {
