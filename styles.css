@@ -1530,3 +1530,425 @@ input[type="range"]::-webkit-slider-thumb:hover {
         display: none !important;
     }
 }
+
+/* =============================
+   Layout Polish: stable UI sizing
+   ============================= */
+:root {
+    --ui-page-pad: 20px;
+    --ui-gap: 16px;
+    --ui-panel-pad: 18px;
+    --ui-sidebar-width: 300px;
+    --ui-bottom-width: 600px;
+    --ui-control-height: 44px;
+    --ui-chip-height: 34px;
+}
+
+.app-ui {
+    height: 100dvh;
+    grid-template-columns: minmax(0, 1fr) var(--ui-sidebar-width);
+    grid-template-rows: minmax(56px, auto) minmax(0, 1fr);
+    gap: var(--ui-gap);
+    padding: var(--ui-page-pad);
+}
+
+.top-bar {
+    min-width: 0;
+    align-items: flex-start;
+    padding-top: 0;
+}
+
+.brand {
+    min-height: var(--ui-chip-height);
+    margin-top: 2px;
+}
+
+.brand-icon {
+    font-size: 24px;
+}
+
+.brand-name {
+    font-size: 22px;
+    letter-spacing: 0;
+}
+
+.top-bar-right {
+    min-width: 0;
+    max-width: min(440px, 48vw);
+    gap: 10px;
+}
+
+.status-widgets {
+    gap: 10px;
+}
+
+.weather-widget,
+.clock-widget,
+.now-playing-widget {
+    border-radius: var(--border-radius-md);
+}
+
+.weather-widget,
+.clock-widget {
+    min-height: var(--ui-chip-height);
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+#clock-time {
+    font-size: 16px;
+    line-height: 1;
+}
+
+#clock-date {
+    font-size: 9px;
+    line-height: 1.1;
+    letter-spacing: 0.5px;
+}
+
+.now-playing-widget {
+    width: min(320px, 100%);
+    padding: 9px 12px;
+}
+
+.media-info-row {
+    font-size: 12px;
+    line-height: 1.25;
+}
+
+.sidebar {
+    min-height: 0;
+    max-height: none;
+    padding: var(--ui-panel-pad);
+    gap: 14px;
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-size: 16px;
+    margin-bottom: 2px;
+    letter-spacing: 0;
+}
+
+.city-list {
+    gap: 10px;
+}
+
+.city-btn {
+    min-height: 72px;
+    padding: 12px 14px 12px 16px;
+    border-radius: var(--border-radius-md);
+}
+
+.city-name-kr {
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+.city-name-en {
+    font-size: 10.5px;
+    line-height: 1.25;
+    margin-bottom: 7px;
+}
+
+.city-tag {
+    min-height: 22px;
+    max-width: 100%;
+    font-size: 10px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.bottom-controls {
+    min-width: 0;
+    width: min(100%, var(--ui-bottom-width));
+    max-width: var(--ui-bottom-width);
+    gap: 12px;
+    padding-bottom: 40px;
+}
+
+.mixer-panel,
+.utility-panel {
+    border-radius: var(--border-radius-lg);
+}
+
+.mixer-panel {
+    padding: var(--ui-panel-pad);
+}
+
+.mixer-header {
+    margin-bottom: 14px;
+}
+
+.mixer-header h3 {
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+.mixer-grid {
+    gap: 16px;
+}
+
+.slider-group {
+    min-width: 0;
+    gap: 7px;
+}
+
+.slider-label {
+    min-width: 0;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.label-left {
+    min-width: 0;
+}
+
+.label-left span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sound-select {
+    max-width: 128px;
+    min-height: 28px;
+    font-size: 10.5px;
+    flex-shrink: 0;
+}
+
+.utility-panel {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding: 8px;
+    gap: 8px;
+}
+
+.timer-select-container,
+.lang-select-container {
+    min-width: 0;
+}
+
+.utility-btn,
+.timer-select-container #timer-btn,
+.lang-select-container #lang-btn {
+    width: 100%;
+    min-height: var(--ui-control-height);
+}
+
+.utility-btn,
+.control-btn {
+    justify-content: center;
+    border-radius: var(--border-radius-md);
+    font-size: 11.5px;
+    line-height: 1.15;
+}
+
+.utility-btn {
+    min-width: 0;
+    padding: 9px 10px;
+}
+
+.utility-btn span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.control-btn {
+    width: 36px;
+    height: 36px;
+}
+
+@media (max-width: 1100px) {
+    :root {
+        --ui-page-pad: 16px;
+        --ui-gap: 14px;
+        --ui-sidebar-width: 280px;
+        --ui-bottom-width: 560px;
+    }
+
+    .top-bar-right {
+        max-width: 380px;
+    }
+}
+
+@media (max-width: 900px) {
+    :root {
+        --ui-page-pad: 12px;
+        --ui-gap: 10px;
+        --ui-panel-pad: 12px;
+        --ui-control-height: 52px;
+    }
+
+    body,
+    html {
+        overflow: hidden !important;
+    }
+
+    .app-ui {
+        height: 100dvh !important;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto minmax(0, 1fr);
+        gap: var(--ui-gap);
+        padding: var(--ui-page-pad);
+        padding-bottom: calc(var(--ui-page-pad) + env(safe-area-inset-bottom, 0px)) !important;
+        overflow: hidden !important;
+    }
+
+    .top-bar {
+        min-height: 38px;
+        padding: 0;
+    }
+
+    .brand {
+        gap: 8px;
+        min-width: 0;
+        margin-top: 0;
+    }
+
+    .brand-icon {
+        font-size: 20px;
+    }
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+    .clock-widget {
+        min-width: 82px;
+        padding: 6px 9px;
+    }
+
+    #clock-time {
+        font-size: 14px;
+    }
+
+    #clock-date {
+        font-size: 8px;
+    }
+
+    .sidebar {
+        min-height: 72px;
+        overflow: visible;
+    }
+
+    .city-list {
+        gap: 8px;
+        padding: 1px 0 5px;
+    }
+
+    .city-btn {
+        flex: 0 0 126px;
+        min-height: 64px;
+        padding: 8px 10px 9px 12px;
+    }
+
+    .city-name-kr {
+        font-size: 13px;
+    }
+
+    .city-name-en {
+        font-size: 9px;
+        margin-bottom: 5px;
+    }
+
+    .city-tag {
+        min-height: 19px;
+        font-size: 8.5px;
+        padding: 3px 6px;
+    }
+
+    .bottom-controls {
+        align-self: end;
+        width: 100%;
+        max-width: none;
+        gap: 8px;
+        padding-bottom: 0;
+    }
+
+    .mixer-panel {
+        padding: 10px 12px;
+    }
+
+    .mixer-header {
+        min-height: 36px;
+        margin-bottom: 8px;
+    }
+
+    .mixer-header h3 {
+        font-size: 13px;
+    }
+
+    .mixer-grid {
+        gap: 10px;
+    }
+
+    .slider-label {
+        font-size: 11px;
+    }
+
+    .sound-select {
+        max-width: 118px;
+        min-height: 26px;
+        font-size: 10px;
+    }
+
+    .utility-panel {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .utility-btn {
+        min-height: var(--ui-control-height) !important;
+        padding: 8px 6px !important;
+        gap: 5px !important;
+        font-size: 10.5px !important;
+        border-radius: 10px !important;
+    }
+
+    .utility-btn i {
+        font-size: 15px !important;
+    }
+
+    #about-btn {
+        grid-column: span 2;
+    }
+
+    .timer-dropdown,
+    .lang-dropdown {
+        width: 176px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .city-btn {
+        flex-basis: 118px;
+    }
+
+    .utility-panel {
+        gap: 6px;
+        padding: 6px;
+    }
+
+    .utility-btn {
+        font-size: 10px !important;
+    }
+}
+
+@media (max-width: 900px) and (max-height: 560px) {
+    body,
+    html,
+    .app-ui {
+        overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100dvh !important;
+    }
+
+    .bottom-controls {
+        align-self: start;
+    }
+}
